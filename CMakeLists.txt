@@ -57,63 +57,65 @@ if (LINUX)
 endif ()
 
 #######################################################
-#               Qt6 Configuration
+#               Qt5 Configuration
 #######################################################
 
-option(QT6_DISABLE_DNSENGINE "Disable DNS Engine" OFF)
+option(QT5_DISABLE_DNSENGINE "Disable DNS Engine" OFF)
 
 # Compilation error for deprecated functions
 add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x050F00)
 add_compile_definitions(QT_DEBUG_FIND_PACKAGE=ON)
-if (QT6_DISABLE_DNSENGINE)
+if (QT5_DISABLE_DNSENGINE)
     message(STATUS "DNS Engine disabled")
     add_compile_definitions(QT6_DISABLE_DNSENGINE=ON)
 endif ()
-# Configure Qt6 to get necessary variables
+# Configure Qt5 to get necessary variables
 include(Qt5QGCConfiguration)
 message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "Qt version: ${QT_VERSION}")
 message(STATUS "Qt spec: ${QT_MKSPEC}")
 
-find_package(Qt5 ${QT_VERSION}
-	COMPONENTS
-		Bluetooth
-		Charts
-		Concurrent
-		Core
-		Location
-		Multimedia
-		Network
-		Positioning
-		Quick
-		QuickControls2
-		QuickWidgets
-		OpenGL
-		Sql
-		Svg
-		Test
-		TextToSpeech
-		Widgets
-		Xml
-	REQUIRED
-	HINTS
-		${QT_LIBRARY_HINTS}
 
-add_definitions(
-	-DQGC_APPLICATION_NAME="QGroundControl"
-	-DQGC_ORG_NAME="QGroundControl.org"
-	-DQGC_ORG_DOMAIN="org.qgroundcontrol"
-	)
+# Find Qt6 libraries
+find_package(Qt6 ${QT_VERSION}
+        COMPONENTS
+                Bluetooth
+                Charts
+                Concurrent
+                Core
+                Location
+                Multimedia
+                Network
+                Positioning
+                Quick
+                QuickControls2
+                QuickWidgets
+                OpenGL
+                Sql
+                Svg
+                Test
+                TextToSpeech
+                Widgets
+                Xml
+        HINTS
+                ${QT_LIBRARY_HINTS}
+)
 
-include(Git)
-message(STATUS "QGroundControl version: ${APP_VERSION_STR}")
+if(NOT QT_MKSPEC MATCHES "winrt")
+    find_package(Qt5 ${QT_VERSION}
+            COMPONENTS
+            SerialPort
+            REQUIRED
+            HINTS
+            ${QT_LIBRARY_HINTS}
+    )
 endif()
 
 # this is required since user can have Qt5 and Qt6 installed at the same time, and then Qt_DIR
 # might point to Qt5, but we want to use Qt6
 # especially qmdnsengine uses Qt_DIR to choose Qt version
-if (Qt6_DIR)
-    set(QT_DIR ${Qt6_DIR})
+if (Qt5_DIR)
+    set(QT_DIR ${Qt5_DIR})
 endif ()
 
 #######################################################
@@ -124,7 +126,7 @@ endif ()
 option(COMPILE_QML "Pre-compile QML files using the Qt Quick compiler." FALSE)
 add_feature_info(COMPILE_QML COMPILE_QML "Pre-compile QML files using the Qt Quick compiler.")
 if(COMPILE_QML)
-    find_package(Qt5QuickCompiler)
+    find_package(Qt6QuickCompiler)
     set_package_properties(Qt6QuickCompiler PROPERTIES
             DESCRIPTION "Pre-compile QML files using the Qt Quick compiler."
             TYPE OPTIONAL
@@ -192,29 +194,31 @@ if (ENABLE_VIDEOSTREAMING)
             gstreamer-gl-1.0>=1.20
     )
 
-    if (MSVC)
-        pkg_check_modules(GST
-                ${GST_DEPENDENCIES}
-        )
-    else ()
-        pkg_check_modules(GST
-                ${GST_DEPENDENCIES}
-                egl
-        )
-        message(STATUS "GStreamer libs: ${GST_LIBRARIES}")
-        message(STATUS "GStreamer include dirs: ${GST_INCLUDE_DIRS}")
-        message(STATUS "GStreamer link dirs: ${GST_LIBRARY_DIRS}")
-        message(STATUS "GStreamer cflags: ${GST_CFLAGS}")
-        message(STATUS "GStreamer ldflags: ${GST_LDFLAGS}")
-        message(STATUS "GStreamer libs: ${GST_LIBS}")
+    if (LINUX OR ANDROID)
+        set(GST_DEPENDENCIES ${GST_DEPENDENCIES} egl)
+    endif ()
+
+    pkg_check_modules(GST
+            ${GST_DEPENDENCIES}
+    )
+
+    message(STATUS "GStreamer libs: ${GST_LIBRARIES}")
+    message(STATUS "GStreamer include dirs: ${GST_INCLUDE_DIRS}")
+    message(STATUS "GStreamer link dirs: ${GST_LIBRARY_DIRS}")
+    message(STATUS "GStreamer cflags: ${GST_CFLAGS}")
+    message(STATUS "GStreamer ldflags: ${GST_LDFLAGS}")
+    message(STATUS "GStreamer libs: ${GST_LIBS}")
+
+    if (LINUX OR ANDROID)
         message(STATUS "GStreamer egl libs: ${GST_EGL_LIBRARIES}")
         message(STATUS "GStreamer egl include dirs: ${GST_EGL_INCLUDE_DIRS}")
         message(STATUS "GStreamer egl link dirs: ${GST_EGL_LIBRARY_DIRS}")
         message(STATUS "GStreamer egl cflags: ${GST_EGL_CFLAGS}")
         message(STATUS "GStreamer egl ldflags: ${GST_EGL_LDFLAGS}")
         message(STATUS "GStreamer egl libs: ${GST_EGL_LIBS}")
-        message(STATUS "gst found ${GST_FOUND}")
     endif ()
+
+    message(STATUS "gst found ${GST_FOUND}")
     if (GST_FOUND)
         add_definitions(-DQGC_GST_STREAMING)
         option(QGC_GST_MICROHARD_ENABLED "Enable microhard" OFF)
@@ -321,7 +325,7 @@ install(
 #######################################################
 
 if(BUILD_TESTING)
-    target_link_libraries(${PROJECT_NAME} PRIVATE Qt6::Test)
+    target_link_libraries(${PROJECT_NAME} PRIVATE Qt5::Test)
 endif()
 
 #######################################################
@@ -330,7 +334,7 @@ endif()
 if(NOT QT_MKSPEC MATCHES "winrt")
     target_link_libraries(${PROJECT_NAME}
         PUBLIC
-            Qt6::SerialPort
+            Qt5::SerialPort
         )
 endif()
 
