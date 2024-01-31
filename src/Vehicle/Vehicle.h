@@ -52,6 +52,11 @@
 #include "VehicleGeneratorFactGroup.h"
 #include "VehicleEFIFactGroup.h"
 
+#ifdef CONFIG_UTM_ADAPTER
+#include "UTMSPVehicle.h"
+#include "UTMSPManager.h"
+#endif
+
 class Actuators;
 class EventHandler;
 class UAS;
@@ -78,6 +83,9 @@ class LinkManager;
 class InitialConnectStateMachine;
 class Autotune;
 class RemoteIDManager;
+#ifdef CONFIG_UTM_ADAPTER
+class UTMSPVehicle;
+#endif
 
 #ifndef OPAQUE_PTR_VEHICLE
     #define OPAQUE_PTR_VEHICLE
@@ -1224,6 +1232,9 @@ private:
     ComponentInformationManager*    _componentInformationManager    = nullptr;
     VehicleObjectAvoidance*         _objectAvoidance                = nullptr;
     Autotune*                       _autotune                       = nullptr;
+#ifdef CONFIG_UTM_ADAPTER
+    UTMSPVehicle*                   _utmspVehicle                   = nullptr;
+#endif
 
     bool    _armed = false;         ///< true: vehicle is armed
     uint8_t _base_mode = 0;     ///< base_mode from HEARTBEAT
