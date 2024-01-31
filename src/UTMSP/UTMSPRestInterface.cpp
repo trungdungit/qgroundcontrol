@@ -54,7 +54,7 @@ bool isNetworkAvailable()
 
 void UTMSPRestInterface::setHost(std::string target)
 {
-    _request.set(http::field::content_length, 0);
+    _request.set(http::field::content_length, "");
     _request.version(11);
     _request.set(boost::beast::http::field::user_agent, BOOST_BEAST_VERSION_STRING);
 

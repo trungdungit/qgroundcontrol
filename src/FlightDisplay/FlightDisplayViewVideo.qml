@@ -71,6 +71,7 @@ Item {
     }
 
     Rectangle {
+        id:             videoBackground
         anchors.fill:   parent
         color:          "black"
         visible:        QGroundControl.videoManager.decoding
