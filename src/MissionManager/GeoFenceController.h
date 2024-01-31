@@ -59,6 +59,11 @@ public:
     /// Clears the interactive bit from all fence items
     Q_INVOKABLE void clearAllInteractive(void);
 
+#ifdef CONFIG_UTM_ADAPTER
+    Q_INVOKABLE void loadFlightPlanData(void);
+    Q_INVOKABLE bool loadUploadFlag(void);
+#endif
+
     double  paramCircularFence  (void);
     Fact*   breachReturnAltitude(void) { return &_breachReturnAltitudeFact; }
 
