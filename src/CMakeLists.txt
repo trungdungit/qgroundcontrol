@@ -164,6 +164,7 @@ if (${QGC_GST_TAISYNC_ENABLED})
 endif ()
 add_subdirectory(Terrain)
 add_subdirectory(uas)
+add_subdirectory(UTMSP)
 add_subdirectory(Vehicle)
 add_subdirectory(VehicleSetup)
 add_subdirectory(VideoManager)
@@ -175,11 +176,10 @@ add_subdirectory(VideoReceiver)
 target_link_libraries(${PROJECT_NAME}
         PRIVATE
             shp
-            Qt6::QuickControls2
+            Qt5::QuickControls2
         PUBLIC
-            Qt6::QuickWidgets
-            Qt6::Widgets
-            Qt6::Core5Compat
+            Qt5::QuickWidgets
+            Qt5::Widgets
 
             ADSB
             AnalyzeView
@@ -203,6 +203,7 @@ target_link_libraries(${PROJECT_NAME}
             Settings
             Terrain
             uas
+	    UTMSP
             Vehicle
             VehicleSetup
             VideoManager

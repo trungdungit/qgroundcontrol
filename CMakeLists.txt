@@ -67,7 +67,7 @@ add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x050F00)
 add_compile_definitions(QT_DEBUG_FIND_PACKAGE=ON)
 if (QT5_DISABLE_DNSENGINE)
     message(STATUS "DNS Engine disabled")
-    add_compile_definitions(QT6_DISABLE_DNSENGINE=ON)
+    add_compile_definitions(QT5_DISABLE_DNSENGINE=ON)
 endif ()
 # Configure Qt5 to get necessary variables
 include(Qt5QGCConfiguration)
@@ -76,8 +76,8 @@ message(STATUS "Qt version: ${QT_VERSION}")
 message(STATUS "Qt spec: ${QT_MKSPEC}")
 
 
-# Find Qt6 libraries
-find_package(Qt6 ${QT_VERSION}
+# Find Qt5 libraries
+find_package(Qt5 ${QT_VERSION}
         COMPONENTS
                 Bluetooth
                 Charts
@@ -126,8 +126,8 @@ endif ()
 option(COMPILE_QML "Pre-compile QML files using the Qt Quick compiler." FALSE)
 add_feature_info(COMPILE_QML COMPILE_QML "Pre-compile QML files using the Qt Quick compiler.")
 if(COMPILE_QML)
-    find_package(Qt6QuickCompiler)
-    set_package_properties(Qt6QuickCompiler PROPERTIES
+    find_package(Qt5QuickCompiler)
+    set_package_properties(Qt5QuickCompiler PROPERTIES
             DESCRIPTION "Pre-compile QML files using the Qt Quick compiler."
             TYPE OPTIONAL
     )
@@ -266,6 +266,16 @@ if (WIN32)
     set(QGC_RESOURCES
             ${QGC_RESOURCES}
             ${CMAKE_CURRENT_SOURCE_DIR}/windows/QGroundControl.rc)
+endif()
+
+if(CONFIG_UTM_ADAPTER)
+    list(APPEND QGC_RESOURCES
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/UTMSP/utmsp.qrc
+    )
+else()
+    list(APPEND QGC_RESOURCES
+            ${CMAKE_CURRENT_SOURCE_DIR}/src/UTMSP/dummy/utmsp_dummy.qrc
+    )
 endif()
 
 if(BUILD_TESTING)

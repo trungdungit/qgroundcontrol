@@ -251,7 +251,7 @@ ApplicationWindow {
         id:             stackView
         anchors.fill:   parent
 
-        initialItem: FlyView { id: flightView }
+        initialItem: FlyView { id: flightView; utmspSendActTrigger: _utmspSendActTrigger}
     }
 
     footer: LogReplayStatusBar {
@@ -430,6 +430,13 @@ ApplicationWindow {
 
         PlanView {
             id: planView
+            onActivationParamsSent:{
+                if(_utmspEnabled){
+                    _startTimeStamp = startTime
+                    _showVisible = activate
+                    _flightID = flightID
+                }
+            }
         }
     }
 
@@ -819,14 +826,6 @@ ApplicationWindow {
         }
     }
 
-    Connections{
-         target: planView
-         function onActivationParamsSent(timestamp,activate,flightID){
-             _startTimeStamp = timestamp
-             _showVisible = activate
-             _flightID = flightID
-         }
-     }
     Connections{
          target: activationbar
          function onActivationTriggered(value){

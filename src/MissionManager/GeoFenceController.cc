@@ -602,12 +602,10 @@ bool GeoFenceController::isEmpty(void) const
     return _polygons.count() == 0 && _circles.count() == 0 && !_breachReturnPoint.isValid();
 }
 
-
 #ifdef CONFIG_UTM_ADAPTER
 void GeoFenceController::loadFlightPlanData()
 {
     QJsonArray jsonPolygonArray;
-    QJsonDocument doc;
     QList<QGeoCoordinate> geoCoordinates ;
 
     for (int i = 0; i < _polygons.count(); i++) {
@@ -616,12 +614,7 @@ void GeoFenceController::loadFlightPlanData()
         fencePolygon->saveToJson(jsonPolygon);
         jsonPolygonArray.append(jsonPolygon);
     }
-    doc.setArray(jsonPolygonArray);
-    QString dataToString(doc.toJson());
-
-    // Parse the JSON string into a QJsonArray
-    QJsonDocument polygonDoc = QJsonDocument::fromJson(dataToString.toUtf8());
-    QJsonArray jsonArray = polygonDoc.array();
+    QJsonArray jsonArray = QJsonDocument::fromJson(QJsonDocument(jsonPolygonArray).toJson()).array();
     QJsonObject jsonObject = jsonArray.at(0).toObject();
     QJsonArray polygonArray = jsonObject.value("polygon").toArray();
 

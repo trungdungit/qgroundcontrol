@@ -53,6 +53,7 @@ QGCFlickable {
     property bool   submissionFlag
     property bool   approvalFlag
     property bool   triggerSubmitButton
+    property bool   resetRegisterFlightPlan
 
     readonly property real  _editFieldWidth:    Math.min(width - _margin * 2, ScreenTools.defaultFontPixelWidth * 15)
     readonly property real  _margin:            ScreenTools.defaultFontPixelWidth / 2
@@ -61,8 +62,9 @@ QGCFlickable {
     // Send parameters to PlanView qml
     signal responseSent(string response, bool responseFlag)                     // Send the flight blender response to PlanVeiw
     signal vehicleIDSent(string id)                                             // Send Vehcile ID to PlanView
-    signal resetTriggered()                                                       // Send FlightPlan Trigger Value to PlanView
+    signal resetGeofencePolygonTriggered()                                      // Send FlightPlan Trigger Value to PlanView
     signal timeStampSent(string timestamp, bool activateflag, string id)        // Send the flight timestamp to UTMSPActivationStatusBar
+    signal removeFlightPlanTriggered()
 
     // Set default Geofence Polygon
     function defaultPolygon(){
@@ -123,35 +125,35 @@ QGCFlickable {
                     spacing: _margin * 25
 
                     Switch {
-                        id:      login_switch
-                        text:    login_switch.checked ? qsTr("Enabled"):qsTr("Disabled")
-                        visible: trigger.visible
+                        id:      loginSwitch
+                        text:    loginSwitch.checked ? qsTr("Enabled"):qsTr("Disabled")
+                        visible: UTMSPStateStorage.loginState
                         indicator: Rectangle {
                             implicitWidth:  ScreenTools.defaultFontPixelWidth * 8
                             implicitHeight: ScreenTools.defaultFontPixelHeight * 1.44
-                            x:              login_switch.leftPadding
+                            x:              loginSwitch.leftPadding
                             y:              parent.height / 2 - height / 2
                             radius:         ScreenTools.defaultFontPixelHeight * 0.722
-                            color:          login_switch.checked ? qgcPal.switchUTMSP : qgcPal.buttonText
-                            border.color:   login_switch.checked ? qgcPal.switchUTMSP : qgcPal.colorGrey
+                            color:          loginSwitch.checked ? qgcPal.switchUTMSP : qgcPal.buttonText
+                            border.color:   loginSwitch.checked ? qgcPal.switchUTMSP : qgcPal.colorGrey
 
                             Rectangle {
-                                x:            login_switch.checked ? parent.width - width : 0
+                                x:            loginSwitch.checked ? parent.width - width : 0
                                 width:        ScreenTools.defaultFontPixelWidth * 4.33
                                 height:       ScreenTools.defaultFontPixelHeight * 1.44
                                 radius:       ScreenTools.defaultFontPixelHeight * 0.722
-                                color:        login_switch.down ? qgcPal.colorGrey : qgcPal.buttonText
-                                border.color: login_switch.checked ? (login_switch.down ? qgcPal.switchUTMSP : qgcPal.switchUTMSP) : qgcPal.colorGrey
+                                color:        loginSwitch.down ? qgcPal.colorGrey : qgcPal.buttonText
+                                border.color: loginSwitch.checked ? (loginSwitch.down ? qgcPal.switchUTMSP : qgcPal.switchUTMSP) : qgcPal.colorGrey
                             }
                         }
 
                         contentItem: Text {
-                            text:               login_switch.text
-                            font:               login_switch.font
+                            text:               loginSwitch.text
+                            font:               loginSwitch.font
                             opacity:            enabled ? 1.0 : 0.3
-                            color:              login_switch.checked ? qgcPal.colorGreen : qgcPal.buttonText
+                            color:              loginSwitch.checked ? qgcPal.colorGreen : qgcPal.buttonText
                             verticalAlignment:  Text.AlignVCenter
-                            leftPadding:        login_switch.indicator.width + login_switch.spacing
+                            leftPadding:        loginSwitch.indicator.width + loginSwitch.spacing
                         }
                     }
 
@@ -160,12 +162,15 @@ QGCFlickable {
                         width:      ScreenTools.defaultFontPixelWidth * 7.5
                         height:     ScreenTools.defaultFontPixelHeight * 1.389
                         text:       "Logout"
-                        visible:    !trigger.visible
+                        visible:    !UTMSPStateStorage.loginState
                         onClicked:{
-                            trigger.visible = !trigger.visible
-                            login_switch.checked =!login_switch.checked
+                            UTMSPStateStorage.loginState = !UTMSPStateStorage.loginState
+                            loginSwitch.checked =!loginSwitch.checked
                             loading.visible = false
                             loginButton.opacity = 1
+                            removeFlightPlanTriggered()
+                            geoSwitch.enabled = true
+                            UTMSPStateStorage.removeFlightPlanState
                         }
                     }
 
@@ -173,11 +178,12 @@ QGCFlickable {
                         width:   ScreenTools.defaultFontPixelWidth * 0.1
                         height:  ScreenTools.defaultFontPixelHeight * 0.83
                         color:   qgcPal.windowShadeDark
-                        visible: !trigger.visible
+                        visible: !UTMSPStateStorage.loginState
                     }
 
                     Row{
                         spacing: _margin * 5
+                        visible: UTMSPStateStorage.loginState
 
                         QGCLabel{
                             id:     notifyText
@@ -190,13 +196,13 @@ QGCFlickable {
                         Image {
                             width:  ScreenTools.defaultFontPixelWidth * 5
                             height: ScreenTools.defaultFontPixelHeight * 1.667
-                            source: trigger.visible? "qrc:/utmsp/red.png" : "qrc:/utmsp/green.png"
+                            source: UTMSPStateStorage.loginState? "qrc:/utmsp/red.png" : "qrc:/utmsp/green.png"
                             PropertyAnimation on opacity {
                                 easing.type:    Easing.OutQuart
                                 from:           0.5
                                 to:             1
                                 loops:          Animation.Infinite
-                                running:        trigger.visible
+                                running:        UTMSPStateStorage.loginState
                                 alwaysRunToEnd: true
                                 duration:       2000
                             }
@@ -208,12 +214,12 @@ QGCFlickable {
                     width:   ScreenTools.defaultFontPixelWidth * 0.5
                     height:  ScreenTools.defaultFontPixelHeight * 0.833
                     color:   qgcPal.windowShadeDark
-                    visible: trigger.visible
+                    visible: UTMSPStateStorage.loginState
                 }
 
                 Column{
                     spacing: _margin * 3.33
-                    visible: trigger.visible
+                    visible: UTMSPStateStorage.loginState
 
                     Column{
                         spacing:_margin * 1.667
@@ -223,7 +229,7 @@ QGCFlickable {
                             id:                     userName
                             width:                  ScreenTools.defaultFontPixelWidth * 50
                             height:                 ScreenTools.defaultFontPixelHeight * 1.667
-                            enabled:                login_switch.checked
+                            enabled:                loginSwitch.checked
                             visible:                true
                             Layout.fillWidth:       true
                             Layout.minimumWidth:    _editFieldWidth
@@ -239,7 +245,7 @@ QGCFlickable {
                             id:                     password
                             width:                  ScreenTools.defaultFontPixelWidth * 50
                             height:                 ScreenTools.defaultFontPixelHeight * 1.667
-                            enabled:                login_switch.checked
+                            enabled:                loginSwitch.checked
                             visible:                true
                             echoMode:               TextInput.Password
                             Layout.fillWidth:       true
@@ -255,15 +261,16 @@ QGCFlickable {
                             width:   ScreenTools.defaultFontPixelWidth * 0.5
                             height:  ScreenTools.defaultFontPixelHeight * 0.833
                             color:   qgcPal.windowShadeDark
-                            visible: trigger.visible
+                            visible: UTMSPStateStorage.loginState
                         }
                         QGCButton {
                             id:         loginButton
                             text:       qsTr("Login")
-                            enabled:    login_switch.checked
+                            enabled:    loginSwitch.checked
                             width:      ScreenTools.defaultFontPixelWidth * 18
                             height:     ScreenTools.defaultFontPixelHeight * 1.667
                             x:          ScreenTools.defaultFontPixelWidth * 18
+                            visible:    UTMSPStateStorage.loginState
                             AnimatedImage{
                                 id:      loading
                                 width:   ScreenTools.defaultFontPixelWidth * 4.5
@@ -290,14 +297,14 @@ QGCFlickable {
                             id:         delayTimer
                             running:    false
                             onTriggered: {
-                                trigger.visible = !trigger.visible
+                                UTMSPStateStorage.loginState = !UTMSPStateStorage.loginState
                             }
                         }
                         Rectangle{
                             width:   ScreenTools.defaultFontPixelWidth * 0.5
                             height:  ScreenTools.defaultFontPixelHeight * 0.833
                             color:   qgcPal.windowShadeDark
-                            visible: trigger.visible
+                            visible: UTMSPStateStorage.loginState
                         }
                     }
                     Label{
@@ -356,16 +363,21 @@ QGCFlickable {
                     color:  qgcPal.windowShadeDark
                 }
 
-                SectionHeader {
+                Text{
+                    text:       "Flight Plan Information"
+                    font.bold:  true
+                    color:      qgcPal.buttonText
+                    visible:    !UTMSPStateStorage.loginState
+                }
+
+                Rectangle {
                     id:             flightinformation
                     anchors.left:   parent.left
                     anchors.right:  parent.right
-                    Text{
-                        text: "Flight Plan Information"
-                        font.bold: true
-                        color: qgcPal.buttonText
-                    }
-                    visible:        !trigger.visible
+                    width:          ScreenTools.defaultFontPixelWidth * 60
+                    height:         ScreenTools.defaultFontPixelHeight * 0.1
+                    color:          qgcPal.buttonText
+                    visible:        !UTMSPStateStorage.loginState
                 }
 
                 // Geofence Interface
@@ -375,7 +387,7 @@ QGCFlickable {
                     anchors.right:  parent.right
                     text:           qsTr("Insert Geofence")
                     checked:        false
-                    visible:        !trigger.visible
+                    visible:        !UTMSPStateStorage.loginState
                     PropertyAnimation on opacity {
                         easing.type:    Easing.OutQuart
                         from:           0.5
@@ -394,38 +406,43 @@ QGCFlickable {
 
                 Column {
                     spacing: _margin * 3.33
-                    visible: insertFence.checked && !trigger.visible
+                    visible: insertFence.checked && !UTMSPStateStorage.loginState
                     Switch {
-                        id:   geo_switch
-                        text: geo_switch.checked ? qsTr("Enabled") : qsTr("Disabled")
+                        id:   geoSwitch
+                        text: geoSwitch.checked ? qsTr("Enabled") : qsTr("Disabled")
                         indicator: Rectangle {
                             implicitWidth:  ScreenTools.defaultFontPixelWidth * 8
                             implicitHeight: ScreenTools.defaultFontPixelHeight * 1.44
-                            x:              geo_switch.leftPadding
+                            x:              geoSwitch.leftPadding
                             y:              parent.height / 2 - height / 2
                             radius:         ScreenTools.defaultFontPixelHeight * 0.722
-                            color:          geo_switch.checked ? qgcPal.switchUTMSP : qgcPal.buttonText
-                            border.color:   geo_switch.checked ? qgcPal.switchUTMSP : qgcPal.colorGrey
+                            color:          geoSwitch.checked ? qgcPal.switchUTMSP : qgcPal.buttonText
+                            border.color:   geoSwitch.checked ? qgcPal.switchUTMSP : qgcPal.colorGrey
                             Rectangle {
-                                x:            geo_switch.checked ? parent.width - width : 0
+                                x:            geoSwitch.checked ? parent.width - width : 0
                                 width:        ScreenTools.defaultFontPixelWidth * 4.33
                                 height:       ScreenTools.defaultFontPixelHeight * 1.44
                                 radius:       ScreenTools.defaultFontPixelHeight * 0.722
-                                color:        geo_switch.down ? qgcPal.colorGrey : qgcPal.buttonText
-                                border.color: geo_switch.checked ? (geo_switch.down ? qgcPal.switchUTMSP : qgcPal.switchUTMSP) : qgcPal.colorGrey
+                                color:        geoSwitch.down ? qgcPal.colorGrey : qgcPal.buttonText
+                                border.color: geoSwitch.checked ? (geoSwitch.down ? qgcPal.switchUTMSP : qgcPal.switchUTMSP) : qgcPal.colorGrey
                             }
                         }
                         contentItem: Text {
-                            text:               geo_switch.text
-                            font:               geo_switch.font
+                            text:               geoSwitch.text
+                            font:               geoSwitch.font
                             opacity:            enabled ? 1.0 : 0.3
-                            color:              geo_switch.checked ? qgcPal.colorGreen : qgcPal.buttonText
+                            color:              geoSwitch.checked ? qgcPal.colorGreen : qgcPal.buttonText
                             verticalAlignment:  Text.AlignVCenter
-                            leftPadding:        geo_switch.indicator.width + geo_switch.spacing
+                            leftPadding:        geoSwitch.indicator.width + geoSwitch.spacing
                         }
                         onCheckedChanged: {
                             if (checked) {
                                 defaultPolygon()
+                                if(resetRegisterFlightPlan === true){
+                                    submitFlightPlan.visible = true
+                                    deletePolygon.visible = true
+                                    deleteFlightPlan.visible = false
+                                }
                             }
                         }
                     }
@@ -556,6 +573,7 @@ QGCFlickable {
 
                     Row {
                         ListView {
+                            id: deletePolygon
                             model: myGeoFenceController.polygons
                             delegate: QGCButton {
                                 text: qsTr("Delete")
@@ -565,7 +583,7 @@ QGCFlickable {
                                 y: ScreenTools.defaultFontPixelHeight * 2
                                 onClicked: {
                                     myGeoFenceController.deletePolygon(index)
-                                    geo_switch.checked =false
+                                    geoSwitch.checked =false
                                 }
                             }
                         }
@@ -579,7 +597,7 @@ QGCFlickable {
                     anchors.right:  parent.right
                     text:           qsTr("Date & Time")
                     checked:        false
-                    visible:        !trigger.visible
+                    visible:        !UTMSPStateStorage.loginState
 
                     PropertyAnimation on opacity {
                         easing.type:    Easing.OutQuart
@@ -593,7 +611,7 @@ QGCFlickable {
                 }
 
                 TabBar {
-                    visible:        dateandTime.checked && !trigger.visible
+                    visible:        dateandTime.checked && !UTMSPStateStorage.loginState
                     anchors.left:   parent.left
                     anchors.right:  parent.right
                     background: Rectangle {
@@ -635,7 +653,7 @@ QGCFlickable {
                     spacing:  _margin * 3.33
 
                     Row{
-                        visible:    dateButton.checked && dateandTime.checked && !trigger.visible
+                        visible:    dateButton.checked && dateandTime.checked && !UTMSPStateStorage.loginState
                         spacing:  _margin * 10
 
                         Rectangle{
@@ -664,7 +682,7 @@ QGCFlickable {
 
                     Row{
                         spacing:  _margin * 6.667
-                        visible:  dateButton.checked && dateandTime.checked && !trigger.visible
+                        visible:  dateButton.checked && dateandTime.checked && !UTMSPStateStorage.loginState
                         Rectangle{
                             width: ScreenTools.defaultFontPixelWidth * 2.5
                             height:ScreenTools.defaultFontPixelHeight * 0.278
@@ -831,7 +849,7 @@ QGCFlickable {
                     spacing:  _margin * 3.33
 
                     Row{
-                        visible:    timeButton.checked && dateandTime.checked && !trigger.visible
+                        visible:    timeButton.checked && dateandTime.checked && !UTMSPStateStorage.loginState
                         spacing:    _margin * 10
                         Rectangle{
                             width: ScreenTools.defaultFontPixelWidth * 2.5
@@ -863,7 +881,7 @@ QGCFlickable {
 
                     Row{
                         spacing:   _margin * 6.667
-                        visible:   timeButton.checked && startID.checked && dateandTime.checked && !trigger.visible
+                        visible:   timeButton.checked && startID.checked && dateandTime.checked && !UTMSPStateStorage.loginState
                         Rectangle{
                             width: ScreenTools.defaultFontPixelWidth * 2.5
                             height:ScreenTools.defaultFontPixelHeight * 0.278
@@ -1034,7 +1052,7 @@ QGCFlickable {
 
                     Row{
                         spacing:  _margin * 6.667
-                        visible:  timeButton.checked && stopID.checked && dateandTime.checked && !trigger.visible
+                        visible:  timeButton.checked && stopID.checked && dateandTime.checked && !UTMSPStateStorage.loginState
                         Rectangle{
                             width: ScreenTools.defaultFontPixelWidth * 2.5
                             height:ScreenTools.defaultFontPixelHeight * 0.278
@@ -1200,7 +1218,7 @@ QGCFlickable {
 
                     Row{
                         spacing:  _margin * 10
-                        visible: !trigger.visible
+                        visible: !UTMSPStateStorage.loginState
 
                         Rectangle{
                             width: ScreenTools.defaultFontPixelWidth * 5
@@ -1232,14 +1250,26 @@ QGCFlickable {
                 }
 
                 // Mission Altitude
-                QGCLabel {
-                    text:    qsTr("Mission Altitude")
-                    visible: !trigger.visible
+                Column{
+                    visible:                !UTMSPStateStorage.loginState
+                    QGCLabel        {
+                        text: qsTr("Mission Altitude")
+                    }
+
+                    FactTextField {
+                        width:                  ScreenTools.defaultFontPixelWidth * 50
+                        height:                 ScreenTools.defaultFontPixelHeight * 1.667
+                        Layout.preferredWidth:  ScreenTools.defaultFontPixelWidth * 50
+                        fact:                   QGroundControl.settingsManager.appSettings.defaultMissionItemAltitude
+                    }
                 }
-                FactTextField {
-                    Layout.preferredWidth:  ScreenTools.defaultFontPixelWidth * 6.667
-                    fact:                   QGroundControl.settingsManager.appSettings.defaultMissionItemAltitude
-                    visible:                !trigger.visible
+
+                Rectangle {
+                    anchors.left:   parent.left
+                    anchors.right:  parent.right
+                    width:          ScreenTools.defaultFontPixelWidth * 60
+                    height:         ScreenTools.defaultFontPixelHeight * 0.1
+                    color:          qgcPal.buttonText
                 }
 
                 Connections {
@@ -1249,19 +1279,13 @@ QGCFlickable {
                     }
                 }
 
-                // Request Flight approval Interface
-                SectionHeader {
-                    anchors.left:   parent.left
-                    anchors.right:  parent.right
-                }
-
                 QGCButton {
                     id:             submitFlightPlan
                     text:           qsTr("Register Flight Plan")
-                    visible:        !trigger.visible
+                    visible:        !UTMSPStateStorage.loginState && UTMSPStateStorage.registerButtonState && !UTMSPStateStorage.removeFlightPlanState
                     anchors.left:   parent.left
                     anchors.right:  parent.right
-                    enabled:        geo_switch.checked /*&& triggerSubmitButton*/
+                    enabled:        geoSwitch.checked && triggerSubmitButton
 
                     onClicked: {
                         submissionTimer.interval = 2500
@@ -1281,26 +1305,22 @@ QGCFlickable {
                         var st          = syear + "-" + smonth + "-" + sday + "T" + shour + ":" + sminute + ":" + ssecond+ "." + "000000" + "Z"
                         var et          = syear + "-" + smonth + "-" + sday + "T" + ehour + ":" + eminute + ":" + esecond+ "." + "000000" + "Z"
                         var activateTD  = syear + "-" + String(smonth).padStart(2, '0') + "-" + String(sday).padStart(2, '0') + "T" + String(shour).padStart(2, '0') + ":" + String(sminute).padStart(2, '0') + ":" + String(ssecond).padStart(2, '0') + "." + "000000" + "Z"
-                        resetTriggered()
-                        myGeoFenceController.min_alt = minAltitude;
-                        myGeoFenceController.max_alt = maxAltitude;
-                        myGeoFenceController.startDT = st.toString()
-                        myGeoFenceController.endDT   = et.toString()
+                        resetGeofencePolygonTriggered()
                         myGeoFenceController.loadFlightPlanData()
                         QGroundControl.utmspManager.utmspVehicle.updateStartDateTime(st.toString())
                         QGroundControl.utmspManager.utmspVehicle.updateEndDateTime(et.toString())
                         QGroundControl.utmspManager.utmspVehicle.updateMinAltitude(minAltitude)
                         QGroundControl.utmspManager.utmspVehicle.updateMaxAltitude(maxAltitude)
                         QGroundControl.utmspManager.utmspVehicle.triggerFlightAuthorization()
-                        var Response_flightID = QGroundControl.utmspManager.utmspVehicle.responseFlightID
-                        var Response_flag = QGroundControl.utmspManager.utmspVehicle.responseFlag
-                        var Response_Json = QGroundControl.utmspManager.utmspVehicle.responseJson
+                        var responseFlightID = QGroundControl.utmspManager.utmspVehicle.responseFlightID
+                        var responseFlag = QGroundControl.utmspManager.utmspVehicle.responseFlag
+                        var responseJson = QGroundControl.utmspManager.utmspVehicle.responseJson
                         var serialNumber = QGroundControl.utmspManager.utmspVehicle.vehicleSerialNumber
                         vehicleIDSent(serialNumber)
-                        flightID = Response_flightID
+                        flightID = responseFlightID
                         startTimeStamp = activateTD
-                        submissionFlag = Response_flag
-                        responseSent(Response_Json,Response_flag)
+                        submissionFlag = responseFlag
+                        responseSent(responseJson,responseFlag)
                     }
                 }
 
@@ -1312,10 +1332,29 @@ QGCFlickable {
                         {
                             approvalFlag = myGeoFenceController.loadUploadFlag()
                             timeStampSent(startTimeStamp,approvalFlag,flightID)
+                            submitFlightPlan.visible = false
+                            geoSwitch.checked = false
+                            deletePolygon.visible = false
+                            deleteFlightPlan.visible = true
+                            geoSwitch.enabled = false
                         }
                         else{
                             submitFlightPlan.enabled = true
                         }
+                    }
+                }
+
+                QGCButton {
+                    id:             deleteFlightPlan
+                    text:           qsTr("Remove Flight Plan")
+                    visible:        UTMSPStateStorage.removeFlightPlanState
+                    anchors.left:   parent.left
+                    anchors.right:  parent.right
+                    onClicked:{
+                        removeFlightPlanTriggered()
+                        deleteFlightPlan.visible = false
+                        geoSwitch.enabled = true
+                        QGroundControl.utmspManager.utmspVehicle.triggerActivationStatusBar(false)
                     }
                 }
             }

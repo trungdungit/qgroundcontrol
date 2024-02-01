@@ -95,6 +95,11 @@ signals:
     void loadComplete                   (void);
     void paramCircularFenceChanged      (void);
 
+#ifdef CONFIG_UTM_ADAPTER
+    void uploadFlagSent         (bool flag);
+    void polygonBoundarySent    (QList<QGeoCoordinate> coords);
+#endif
+
 private slots:
     void _polygonDirtyChanged       (bool dirty);
     void _setDirty                  (void);

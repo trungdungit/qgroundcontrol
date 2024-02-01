@@ -152,7 +152,7 @@ add_custom_Target(MisionManagerQml
 
 target_link_libraries(MissionManager
 	PUBLIC
-		Qt6::Xml
+		Qt5::Xml
 		qgc
 )
 

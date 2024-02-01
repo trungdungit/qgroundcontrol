@@ -40,6 +40,10 @@
 #include "UTMSPManager.h"
 #endif
 
+#ifdef CONFIG_UTM_ADAPTER
+#include "UTMSPManager.h"
+#endif
+
  /**
   * @brief Helper function to register a type with QML that is not creatable from QML
   * @param uri The URI to register the type under

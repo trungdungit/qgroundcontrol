@@ -26,15 +26,6 @@ inline QDebug operator<<(QDebug debug, const std::string &s) {
 #include <iostream>
 #include <string>
 #include <sstream>
-
-inline bool isDebugMode() {
-#if defined(QT_DEBUG)
-    return false;
-#else
-    return true;
-#endif
-}
-
 class UTMSPLogger {
 public:
     UTMSPLogger(const std::string& level) : logLevel(level) {}
@@ -64,3 +55,10 @@ private:
 
 #endif
 
+inline bool isDebugMode() {
+#if defined(QT_DEBUG)
+    return false;
+#else
+    return true;
+#endif
+}

@@ -31,7 +31,7 @@ set(QGC_ROOT ${CMAKE_SOURCE_DIR}/..)
 list(APPEND CMAKE_MODULE_PATH ${QGC_ROOT}/cmake)
 
 # Configure Qt6 to get necessary variables
-include(Qt6QGCConfiguration)
+include(Qt5QGCConfiguration)
 message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "Qt version: ${QT_VERSION}")
 message(STATUS "Qt spec: ${QT_MKSPEC}")
@@ -103,9 +103,9 @@ else ()
 endif ()
 
 #=============================================================================
-# Qt6
+# Qt5
 #
-find_package(Qt6 ${QT_VERSION}
+find_package(Qt5 ${QT_VERSION}
     COMPONENTS
     Bluetooth
     Charts
@@ -155,9 +155,9 @@ endif()
 target_link_libraries(VideoReceiverApp
     PRIVATE
         VideoReceiver
-        Qt6::Core
-        Qt6::Multimedia
-        Qt6::OpenGL
-        Qt6::Quick
-        Qt6::QuickWidgets
+        Qt5::Core
+        Qt5::Multimedia
+        Qt5::OpenGL
+        Qt5::Quick
+        Qt5::QuickWidgets
 )
