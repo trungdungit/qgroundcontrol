@@ -8,6 +8,7 @@ import QGroundControl.ScreenTools       1.0
 import QGroundControl.Controls          1.0
 import QGroundControl.FactControls      1.0
 import QGroundControl.Palette           1.0
+import QGroundControl.UTMSP             1.0
 
 // Toolbar for Plan View
 Item {
