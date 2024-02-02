@@ -30,7 +30,7 @@ set(QGC_ROOT ${CMAKE_SOURCE_DIR}/..)
 # Add folder where are supportive functions
 list(APPEND CMAKE_MODULE_PATH ${QGC_ROOT}/cmake)
 
-# Configure Qt6 to get necessary variables
+# Configure Qt5 to get necessary variables
 include(Qt5QGCConfiguration)
 message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
 message(STATUS "Qt version: ${QT_VERSION}")
@@ -58,9 +58,9 @@ endif()
 option(COMPILE_QML "Pre-compile QML files using the Qt Quick compiler." FALSE)
 add_feature_info(COMPILE_QML COMPILE_QML "Pre-compile QML files using the Qt Quick compiler.")
 if(COMPILE_QML)
-    find_package(Qt6QuickCompiler)
+    find_package(Qt5QuickCompiler)
 
-    set_package_properties(Qt6QuickCompiler PROPERTIES
+    set_package_properties(Qt5QuickCompiler PROPERTIES
         DESCRIPTION "Pre-compile QML files using the Qt Quick compiler."
         TYPE OPTIONAL
         )
@@ -136,7 +136,7 @@ include_directories(
     ${QGC_ROOT}/src
     ${QGC_ROOT}/src/Settings
     ${CMAKE_CURRENT_BINARY_DIR}
-    ${Qt6Location_PRIVATE_INCLUDE_DIRS}
+    ${Qt5Location_PRIVATE_INCLUDE_DIRS}
     VideoReceiver
     )
 

@@ -12,7 +12,7 @@ The [Developer Guide](https://docs.qgroundcontrol.com/master/en/qgc-dev-guide/in
 
 
 Key Links:
-* [Website](http://qgroundcontrol.com) (qgroundcontrol.com)
+* [Website](http://qgroundcontrol.com)
 * [User Manual](https://docs.qgroundcontrol.com/master/en/qgc-user-guide/index.html)
 * [Developer Guide](https://docs.qgroundcontrol.com/master/en/qgc-user-guide/index.html)
 * [Discussion/Support](https://docs.qgroundcontrol.com/en/Support/Support.html)

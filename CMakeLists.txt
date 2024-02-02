@@ -189,9 +189,9 @@ if (ENABLE_VIDEOSTREAMING)
     find_package(PkgConfig)
 
     set(GST_DEPENDENCIES
-            gstreamer-1.0>=1.20
-            gstreamer-video-1.0>=1.20
-            gstreamer-gl-1.0>=1.20
+            gstreamer-1.0>=1.18
+            gstreamer-video-1.0>=1.18
+            gstreamer-gl-1.0>=1.18
     )
 
     if (LINUX OR ANDROID)
