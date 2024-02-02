@@ -6,9 +6,9 @@ if(NOT QT_VERSION)
 	# if QT version not specified then use any available version (5.12 or 5.15 only)
 	file(GLOB FOUND_QT_VERSIONS
 		LIST_DIRECTORIES true
-		$ENV{HOME}/Qt5.12.*
-		$ENV{HOME}/Qt5.14.*
-		$ENV{HOME}/Qt5.15.*
+		$ENV{HOME}/Qt/5.12.*
+		$ENV{HOME}/Qt/5.14.*
+		$ENV{HOME}/Qt/5.15.*
 	)
 	if(NOT FOUND_QT_VERSIONS)
 		return()
