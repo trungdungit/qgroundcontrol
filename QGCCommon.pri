@@ -271,6 +271,12 @@ CONFIG(debug, debug|release) {
 }
 
 # Setup our build directories
+!iOSBuild {
+    OBJECTS_DIR  = $${OUT_PWD}/obj
+    MOC_DIR      = $${OUT_PWD}/moc
+    UI_DIR       = $${OUT_PWD}/ui
+    RCC_DIR      = $${OUT_PWD}/rcc
+}
 
 SOURCE_DIR = $$IN_PWD
 
