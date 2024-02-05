@@ -734,11 +734,13 @@ HEADERS += \
     src/AnalyzeView/GeoTagController.h \
     src/AnalyzeView/ExifParser.h \
 
-# FIXME-QT6: NYI
+versionAtLeast(QT_VERSION, 6.1.0) {
 AndroidBuild {
-    DEFINES += FIXME_QT6_DISABLE_ANDROID_JOYSTICK
-    #HEADERS += \
-    #    src/Joystick/JoystickAndroid.h \
+    HEADERS += \
+        src/Joystick/JoystickAndroid.h
+    SOURCES += \
+        src/Joystick/JoystickAndroid.cc
+}
 }
 
 DebugBuild {
@@ -791,8 +793,6 @@ iOSBuild {
 
 AndroidBuild {
     SOURCES += src/MobileScreenMgr.cc
-    # FIXME-QT6: NYI
-    #src/Joystick/JoystickAndroid.cc \
 }
 
 SOURCES += \

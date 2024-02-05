@@ -18,9 +18,9 @@
     #define __sdljoystick__
 #endif
 
-#ifndef FIXME_QT6_DISABLE_ANDROID_JOYSTICK
+#if QT_VERSION < QT_VERSION_CHECK(6, 1, 0)
 #ifdef __android__
-    #include "JoystickAndroid.h"
+#include "JoystickAndroid.h"
 #endif
 #endif
 
@@ -62,7 +62,7 @@ void JoystickManager::init() {
     }
     _setActiveJoystickFromSettings();
 #elif defined(__android__)
-#ifndef FIXME_QT6_DISABLE_ANDROID_JOYSTICK
+#if QT_VERSION < QT_VERSION_CHECK(6, 1, 0)
     if (!JoystickAndroid::init(this)) {
         return;
     }
@@ -82,7 +82,7 @@ void JoystickManager::_setActiveJoystickFromSettings(void)
     // Get the latest joystick mapping
     newMap = JoystickSDL::discover(_multiVehicleManager);
 #elif defined(__android__)
-#ifndef FIXME_QT6_DISABLE_ANDROID_JOYSTICK
+#if QT_VERSION < QT_VERSION_CHECK(6, 1, 0)
     newMap = JoystickAndroid::discover(_multiVehicleManager);
 #endif
 #endif
