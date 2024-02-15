@@ -162,8 +162,8 @@ Rectangle {
             Layout.alignment:   Qt.AlignHCenter
             Layout.fillHeight:  true
             orientation:        Qt.Vertical
-            from:               -1
-            to:                 1
+            minimumValue:       -1
+            maximumValue:       1
             zeroCentered:       false
             rotation:           180
 
