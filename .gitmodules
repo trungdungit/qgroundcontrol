@@ -16,9 +16,6 @@
 [submodule "libs/libevents/libevents"]
 	path = libs/libevents/libevents
 	url = https://github.com/mavlink/libevents.git
-[submodule "libs/eigen"]
-	path = libs/eigen
-	url = https://gitlab.com/libeigen/eigen.git
 [submodule "src/FirmwarePlugin/APM/ArduPilot-Parameter-Repository"]
 	path = src/FirmwarePlugin/APM/ArduPilot-Parameter-Repository
 	url = https://github.com/ArduPilot/ArduPilot-Parameter-Repository

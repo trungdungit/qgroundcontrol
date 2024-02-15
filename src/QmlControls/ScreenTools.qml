@@ -94,8 +94,6 @@ Item {
     property bool isHugeScreen:                     (Screen.width / realPixelDensity) >= (23.5 * 25.4) // 27" monitor
     property bool isSerialAvailable:                ScreenToolsController.isSerialAvailable
 
-    readonly property real minTouchMillimeters:     10      ///< Minimum touch size in millimeters
-    property real minTouchPixels:                   0       ///< Minimum touch size in pixels
     readonly property real minTouchMillimeters:     5   ///< Minimum touch size in millimeters
     property real minTouchPixels:                   0   ///< Minimum touch size in pixels (calculatedd from minTouchMillimeters and realPixelDensity)
 

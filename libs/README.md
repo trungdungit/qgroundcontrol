@@ -1,10 +1,5 @@
 This folder contains the various required libraries for QGC to compile.
 
-# eigen
-* Pulled from https://gitlab.com/libeigen/eigen.git
-* Version 3.3.9
-* 0fd6b4f
-
 # gst-plugins-good
 * Pulled from https://github.com/mavlink/gst-plugins-good.git
 * Version 1.20
