@@ -96,6 +96,8 @@ Item {
 
     readonly property real minTouchMillimeters:     10      ///< Minimum touch size in millimeters
     property real minTouchPixels:                   0       ///< Minimum touch size in pixels
+    readonly property real minTouchMillimeters:     5   ///< Minimum touch size in millimeters
+    property real minTouchPixels:                   0   ///< Minimum touch size in pixels (calculatedd from minTouchMillimeters and realPixelDensity)
 
     // The implicit heights/widths for our custom control set
     property real implicitButtonWidth:              Math.round(defaultFontPixelWidth *  (isMobile ? 7.0 : 5.0))
