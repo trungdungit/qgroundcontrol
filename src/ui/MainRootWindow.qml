@@ -37,11 +37,11 @@ ApplicationWindow {
 
     Component.onCompleted: {
         //-- Full screen on mobile or tiny screens
-        if (ScreenTools.isMobile || Screen.height / ScreenTools.realPixelDensity < 120) {
+        if (!ScreenTools.isFakeMobile && (ScreenTools.isMobile || Screen.height / ScreenTools.realPixelDensity < 120)) {
             mainWindow.showFullScreen()
         } else {
-            width   = ScreenTools.isMobile ? Screen.width  : Math.min(250 * Screen.pixelDensity, Screen.width)
-            height  = ScreenTools.isMobile ? Screen.height : Math.min(150 * Screen.pixelDensity, Screen.height)
+            width   = ScreenTools.isMobile ? ScreenTools.screenWidth  : Math.min(250 * Screen.pixelDensity, Screen.width)
+            height  = ScreenTools.isMobile ? ScreenTools.screenHeight : Math.min(150 * Screen.pixelDensity, Screen.height)
         }
 
         // Start the sequence of first run prompt(s)
