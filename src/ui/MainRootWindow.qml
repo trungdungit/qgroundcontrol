@@ -293,7 +293,7 @@ ApplicationWindow {
                             imageResource:      "/qmlimages/Gears.svg"
                             onClicked: {
                                 if (!mainWindow.preventViewSwitch()) {
-                                    drawer.close()
+                                    mainWindow.closeIndicatorDrawer()
                                     mainWindow.showVehicleSetupTool()
                                 }
                             }
@@ -309,7 +309,7 @@ ApplicationWindow {
                             visible:            QGroundControl.corePlugin.showAdvancedUI
                             onClicked: {
                                 if (!mainWindow.preventViewSwitch()) {
-                                    drawer.close()
+                                    mainWindow.closeIndicatorDrawer()
                                     mainWindow.showAnalyzeTool()
                                 }
                             }
@@ -690,6 +690,10 @@ ApplicationWindow {
         indicatorDrawer.sourceComponent = drawerComponent
         indicatorDrawer.indicatorItem = indicatorItem
         indicatorDrawer.open()
+    }
+
+    function closeIndicatorDrawer() {
+        indicatorDrawer.close()
     }
 
     Popup {

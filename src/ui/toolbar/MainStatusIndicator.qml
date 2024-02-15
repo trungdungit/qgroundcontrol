@@ -181,7 +181,7 @@ RowLayout {
                                 }
                             }
                             forceArm = false
-                            drawer.close()()
+                            mainWindow.closeIndicatorDrawer()
                         }
                     }
 
@@ -319,7 +319,7 @@ RowLayout {
                         } else {
                             mainWindow.vtolTransitionToFwdFlightRequest()
                         }
-                        drawer.close()
+                        mainWindow.closeIndicatorDrawer()
                     }
                 }
             }
