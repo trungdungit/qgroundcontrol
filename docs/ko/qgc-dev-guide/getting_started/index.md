@@ -46,8 +46,8 @@ We support Linux builds using a container found on the source tree of the reposi
 
 ### Native Builds
 
-_QGroundControl_ builds are supported for macOS, Linux, Windows, iOS and Android.
-_QGroundControl_ uses [Qt](http://www.qt.io) as its cross-platform support library and uses [QtCreator](http://doc.qt.io/qtcreator/index.html) as its default build environment.
+_QGroundControl_ builds are supported for macOS, Linux, Windows and Android. Creating a version of QGC for iOS is theoretically possible but is no longer supported as a standard build.
+_QGroundControl_ uses [Qt](http://www.qt.io) as its cross-platform support library.
 
 - **macOS:** v10.11 or higher
 - **Ubuntu:** 64 bit, gcc compiler
