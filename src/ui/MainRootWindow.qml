@@ -118,11 +118,6 @@ ApplicationWindow {
         return globals.validationError
     }
 
-    function viewSwitch(currentToolbar) {
-        toolDrawer.visible      = false
-        toolDrawer.toolSource   = ""
-    }
-
     function showPlanView() {
         stackView.push(planViewComponenent)
     }
@@ -455,6 +450,11 @@ ApplicationWindow {
         property alias toolSource:  toolDrawerLoader.source
         property alias toolIcon:    toolIcon.source
 
+        // Unload the loader only after closed, otherwise we will see a "blank" loader in the meantime
+        onClosed: {
+            toolDrawer.toolSource = ""
+        }
+
         Rectangle {
             id:             toolDrawerToolbar
             anchors.left:   parent.left
@@ -511,7 +511,6 @@ ApplicationWindow {
                 width:              (backTextLabel.x + backTextLabel.width) - backIcon.x
                 onClicked: {
                     toolDrawer.visible      = false
-                    toolDrawer.toolSource   = ""
                 }
             }
         }
