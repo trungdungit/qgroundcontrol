@@ -330,6 +330,7 @@
         <file alias="CameraSpec.FactMetaData.json">src/MissionManager/CameraSpec.FactMetaData.json</file>
         <file alias="CorridorScan.SettingsGroup.json">src/MissionManager/CorridorScan.SettingsGroup.json</file>
         <file alias="RemoteID.SettingsGroup.json">src/Settings/RemoteID.SettingsGroup.json</file>
+	<file alias="Maps.SettingsGroup.json">src/Settings/Maps.SettingsGroup.json</file>
         <file alias="EditPositionDialog.FactMetaData.json">src/QmlControls/EditPositionDialog.FactMetaData.json</file>
         <file alias="FirmwareUpgrade.SettingsGroup.json">src/Settings/FirmwareUpgrade.SettingsGroup.json</file>
         <file alias="FlightMap.SettingsGroup.json">src/Settings/FlightMap.SettingsGroup.json</file>
