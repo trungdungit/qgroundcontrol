@@ -22,8 +22,6 @@ add_library(Settings
 	FlyViewSettings.h
 	MapsSettings.cc
     	MapsSettings.h
-	MavlinkLogSettings.cc
-    	MavlinkLogSettings.h
 	OfflineMapsSettings.cc
 	OfflineMapsSettings.h
 	PlanViewSettings.cc
