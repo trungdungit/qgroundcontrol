@@ -98,6 +98,10 @@ LinuxBuild {
         libQt5X11Extras.so.5 \
         libQt5XcbQpa.so.5 \
         libQt5Xml.so.5 \
+        libQt5Quick3D.so.5 \
+        libQt5Quick3DRuntimeRender.so.5 \
+        libQt5Quick3DUtils.so.5 \
+        libQt5Concurrent.so.5 \
         libicui18n.so* \
         libQt5TextToSpeech.so.5
 
