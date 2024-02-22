@@ -27,7 +27,7 @@ This folder contains the various required libraries for QGC to compile.
 # android_openssl
 * Pulled from https://github.com/KDAB/android_openssl
 * Version 1.1.1
-* aa3c67c
+* 8cd5e08
 
 # libevents
 * Pulled from https://github.com/mavlink/libevents.git
