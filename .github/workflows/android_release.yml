@@ -73,7 +73,7 @@ jobs:
           arch:         ${{ matrix.arch }}
           extra:        --autodesktop
           dir:          ${{ runner.temp }}
-          modules:      qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity
+          modules:      qtcharts qtlocation qtpositioning qtspeech qtquick3d qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity
           setup-python: true
           cache:        true
 

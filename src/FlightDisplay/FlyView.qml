@@ -27,6 +27,9 @@ import QGroundControl.Palette       1.0
 import QGroundControl.ScreenTools   1.0
 import QGroundControl.Vehicle       1.0
 
+// 3D Viewer modules
+import Viewer3D                     1.0
+
 Item {
     id: _root
 
@@ -146,6 +149,11 @@ Item {
             radius:             ScreenTools.defaultFontPixelWidth / 2
             color:              qgcPal.window
             visible:            false
+        }
+
+        Viewer3D{
+           id:                     viewer3DWindow
+           anchors.fill:           parent
         }
 
         FlyViewMap {

@@ -23,8 +23,8 @@ exists($${OUT_PWD}/qgroundcontrol.pro) {
 message(Qt version $$[QT_VERSION])
 
 !contains(CONFIG, DISABLE_QT_VERSION_CHECK) {
-    !versionAtLeast(QT_VERSION, 5.14.1) {
-        error("Qt version 5.14.1 or newer required. Found $$QT_VERSION")
+    !versionAtLeast(QT_VERSION, 5.15.2) {
+        error("Qt version 5.15.2 or newer required. Found $$QT_VERSION")
     }
 }
 
@@ -259,7 +259,8 @@ QT += \
     widgets \
     xml \
     texttospeech \
-    core-private
+    core-private \
+    quick3d
 
 # Multimedia only used if QVC is enabled
 !contains (DEFINES, QGC_DISABLE_UVC) {
@@ -392,6 +393,7 @@ INCLUDEPATH += \
     src/ui/px4_configuration \
     src/ui/toolbar \
     src/ui/uas \
+    src/Viewer3D \
 
 #
 # Plugin API
@@ -610,6 +612,13 @@ HEADERS += \
     src/uas/UASMessageHandler.h \
     src/AnalyzeView/GeoTagController.h \
     src/AnalyzeView/ExifParser.h \
+    src/Viewer3D/CityMapGeometry.h \
+    src/Viewer3D/OsmParser.h \
+    src/Viewer3D/Viewer3DQmlBackend.h \
+    src/Viewer3D/Viewer3DQmlVariableTypes.h \
+    src/Viewer3D/Viewer3DUtils.h \
+    src/Viewer3D/Viewer3DManager.h \
+    src/Settings/Viewer3DSettings.h \
 
 versionAtLeast(QT_VERSION, 6.1.0) {
 AndroidBuild {
@@ -862,6 +871,12 @@ SOURCES += \
     src/uas/UASMessageHandler.cc \
     src/AnalyzeView/GeoTagController.cc \
     src/AnalyzeView/ExifParser.cc \
+    src/Viewer3D/CityMapGeometry.cc \
+    src/Viewer3D/OsmParser.cc \
+    src/Viewer3D/Viewer3DQmlBackend.cc \
+    src/Viewer3D/Viewer3DUtils.cc \
+    src/Viewer3D/Viewer3DManager.cc \
+    src/Settings/Viewer3DSettings.cc \
 
 DebugBuild {
 SOURCES += \
