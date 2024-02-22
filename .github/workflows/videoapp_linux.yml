@@ -41,8 +41,8 @@ jobs:
           create-symlink: true
           key: ${{ runner.os }}-Debug
           restore-keys: ${{ runner.os }}-Debug
-          max-size: "2G"
-          append-timestamp: true
+          max-size: "1G"
+          append-timestamp: false
 
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
