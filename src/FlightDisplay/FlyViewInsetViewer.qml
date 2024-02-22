@@ -9,13 +9,13 @@
 
 import QtQuick          2.12
 import QtQuick.Controls 2.12
-import QtQuick.Dialogs  2.12
-import QtQuick.Layouts  2.12
+import QtQuick.Dialogs  1.2
+import QtQuick.Layouts  1.2
 import QtQuick.Window   2.12
 import QtQml.Models     2.12
 
-import QtLocation       5.12
-import QtPositioning    5.12
+import QtLocation       5.3
+import QtPositioning    5.3
 
 import QGroundControl               1.0
 import QGroundControl.Controllers   1.0

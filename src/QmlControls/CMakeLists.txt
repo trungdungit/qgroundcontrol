@@ -126,7 +126,8 @@ add_custom_target(QmlControlsQml
 		QGCRoundButton.qml
 		ScreenTools.qml
 		SectionHeader.qml
-        SettingsGroupLayout.qml
+		SelectableControl.qml
+        	SettingsGroupLayout.qml
 		SliderSwitch.qml
 		SubMenuButton.qml
 		ToolStrip.qml
