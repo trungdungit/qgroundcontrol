@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "vehicle_gps_position.h"
+#include "sensor_gps.h"
 #include "satellite_info.h"
 #include <QMetaType>
 
