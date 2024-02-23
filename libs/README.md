@@ -2,7 +2,7 @@ This folder contains the various required libraries for QGC to compile.
 
 # gst-plugins-good
 * Pulled from https://github.com/mavlink/gst-plugins-good.git
-* Version 1.20
+* Version 1.18
 * 5ff0a6a
 
 # xz-embedded
@@ -26,7 +26,7 @@ This folder contains the various required libraries for QGC to compile.
 
 # android_openssl
 * Pulled from https://github.com/KDAB/android_openssl
-* Version 1.1.1
+* Version 3.0
 * 8cd5e08
 
 # libevents
@@ -36,10 +36,15 @@ This folder contains the various required libraries for QGC to compile.
 
 # GPS-Drivers
 * Pulled from https://github.com/PX4/GpsDrivers.git
-* Version 0.0.1
+* Version 1.14
 * f48cc0
 
 # ArduPilot-Parameter-Repository
 * Pulled from https://github.com/ArduPilot/ArduPilot-Parameter-Repository
-* Version 0.0.1
+* Version 4.3
 * 772370a
+
+# SDL_GameControllerDB
+* Pulled from https://github.com/mdqinc/SDL_GameControllerDB
+* Version 2.0
+* e15eac7
