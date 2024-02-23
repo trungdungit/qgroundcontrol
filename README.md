@@ -10,7 +10,7 @@ It provides full flight control and mission planning for any MAVLink enabled dro
 All the code is open-source, so you can contribute and evolve it as you want.
 The [Developer Guide](https://docs.qgroundcontrol.com/master/en/qgc-dev-guide/index.html) explains how to [build](https://docs.qgroundcontrol.com/master/en/qgc-dev-guide/getting_started/index.html) and extend QGC.
 
-[New features in this release](MajorUpdates.md)
+[New features in this release](ChangeLog.md)
 
 Key Links:
 * [Website](http://qgroundcontrol.com)
