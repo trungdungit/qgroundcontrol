@@ -21,7 +21,59 @@ import QGroundControl.Vehicle 1.0
 View3D {
     id: topView
     property var viewer3DManager: null
+    readonly property var _gpsRef: viewer3DManager.qmlBackend.gpsRef
+    property bool isViewer3DOpen: false
+    property real rotationSpeed: 0.1
+    property real movementSpeed: 1
+    property real zoomSpeed: 0.3
 
+    function rotateCamera(newPose: vector2d, lastPose: vector2d) {
+        let rotation_vec = Qt.vector2d(newPose.y - lastPose.y, newPose.x - lastPose.x);
+
+        let dx_l = rotation_vec.x * rotationSpeed
+        let dy_l = rotation_vec.y * rotationSpeed
+
+        standAloneScene.cameraOneRotation.x += dx_l
+        standAloneScene.cameraOneRotation.y += dy_l
+    }
+
+    function moveCamera(newPose: vector2d, lastPose: vector2d) {
+        let _roll = standAloneScene.cameraOneRotation.x * (3.1415/180)
+        let _pitch = standAloneScene.cameraOneRotation.y * (3.1415/180)
+
+        let dx_l = (newPose.x - lastPose.x) * movementSpeed
+        let dy_l = (newPose.y - lastPose.y) * movementSpeed
+
+        //Note: Rotation Matrix is computed as: R = R(-_pitch) * R(_roll)
+        // Then the corerxt tramslation is: d = R * [dx_l; dy_l; dz_l]
+
+        let dx = dx_l * Math.cos(_pitch) - dy_l * Math.sin(_pitch) * Math.sin(_roll)
+        let dy =  dy_l * Math.cos(_roll)
+        let dz = dx_l * Math.sin(_pitch) + dy_l * Math.cos(_pitch) * Math.sin(_roll)
+
+        standAloneScene.cameraTwoPosition.x -= dx
+        standAloneScene.cameraTwoPosition.y += dy
+        standAloneScene.cameraTwoPosition.z += dz
+    }
+
+    function zoomCamera(zoomValue){
+        let dz_l = zoomValue * zoomSpeed;
+
+        let _roll = standAloneScene.cameraOneRotation.x * (3.1415/180)
+        let _pitch = standAloneScene.cameraOneRotation.y * (3.1415/180)
+
+        let dx = -dz_l * Math.cos(_roll) * Math.sin(_pitch)
+        let dy =  -dz_l * Math.sin(_roll)
+        let dz = dz_l * Math.cos(_pitch) * Math.cos(_roll)
+
+        standAloneScene.cameraTwoPosition.x -= dx
+        standAloneScene.cameraTwoPosition.y += dy
+        standAloneScene.cameraTwoPosition.z += dz
+    }
+
+    on_GpsRefChanged:{
+        standAloneScene.resetCamera();
+    }
 
     camera: standAloneScene.cameraOne
     importScene: CameraLightModel{
@@ -31,7 +83,7 @@ View3D {
     //    renderMode: View3D.Inline
 
     environment: SceneEnvironment {
-        clearColor: "white"
+        clearColor: "#F9F9F9"
         backgroundMode: SceneEnvironment.Color
     }
 
@@ -42,7 +94,6 @@ View3D {
         geometry: CityMapGeometry {
             id: cityMapGeometry
             modelName: "city_map"
-            osmFilePath: (viewer3DManager)?(viewer3DManager.qmlBackend.osmFilePath):("nan")
             osmParser: (viewer3DManager)?(viewer3DManager.osmParser):(null)
         }
 
