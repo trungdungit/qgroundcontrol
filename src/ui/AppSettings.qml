@@ -82,6 +82,7 @@ Rectangle {
                     padding:            ScreenTools.defaultFontPixelWidth / 2
                     autoExclusive:      true
                     Layout.fillWidth:   true
+                    icon.source:        iconUrl
                     visible:            pageVisible()
 
                     background: Rectangle {
@@ -89,9 +90,22 @@ Rectangle {
                         radius: ScreenTools.defaultFontPixelWidth / 2
                     }
 
-                    contentItem: QGCLabel {
-                        text:   name
-                        color:  checked ? qgcPal.buttonHighlightText : qgcPal.buttonText
+                    contentItem: RowLayout {
+                        spacing: ScreenTools.defaultFontPixelWidth
+
+                        QGCColoredImage {
+                            source: iconUrl
+                            color:  checked ? qgcPal.buttonHighlightText : qgcPal.buttonText
+                            width:  ScreenTools.defaultFontPixelHeight
+                            height: ScreenTools.defaultFontPixelHeight
+                        }
+
+                        QGCLabel {
+                            Layout.fillWidth:       true
+                            text:                   name
+                            color:                  checked ? qgcPal.buttonHighlightText : qgcPal.buttonText
+                            horizontalAlignment:    QGCLabel.AlignLeft
+                        }
                     }
 
                     onClicked: {

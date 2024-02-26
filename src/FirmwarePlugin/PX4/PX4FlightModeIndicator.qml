@@ -44,7 +44,7 @@ FlightModeIndicator {
                     Layout.fillWidth:       true
                     label:                  qsTr("RTL Altitude")
                     fact:                   controller.getParameterFact(-1, "RTL_RETURN_ALT")
-                    to:                     fact.maxIsDefaultForType ? QGroundControl.unitsConversion.metersToAppSettingsHorizontalDistanceUnits(121.92) : fact.maximum
+                    to:                     fact.maxIsDefaultForType ? QGroundControl.unitsConversion.metersToAppSettingsHorizontalDistanceUnits(121.92) : fact.max
                     sliderPreferredWidth:   sliderWidth
                 }
 
@@ -52,7 +52,7 @@ FlightModeIndicator {
                     Layout.fillWidth:       true
                     label:                  qsTr("Land Descent Rate")
                     fact:                   mpcLandSpeedFact
-                    to:                     fact.maxIsDefaultForType ? QGroundControl.unitsConversion.metersToAppSettingsHorizontalDistanceUnits(4) : fact.maximum
+                    to:                     fact.maxIsDefaultForType ? QGroundControl.unitsConversion.metersToAppSettingsHorizontalDistanceUnits(4) : fact.max
                     sliderPreferredWidth:   sliderWidth
                     visible:                mpcLandSpeedFact && controller.vehicle && !controller.vehicle.fixedWing
                 }
