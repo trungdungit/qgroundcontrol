@@ -82,6 +82,15 @@ void QGCFileDialogController::deleteFile(const QString& filename)
     QFile::remove(filename);
 }
 
+QString QGCFileDialogController::urlToLocalFile(QUrl url)
+{
+    if (url.isLocalFile()) {
+        return url.toLocalFile();
+    } else {
+        return url.toString();
+    }
+}
+
 QString QGCFileDialogController::fullFolderPathToShortMobilePath(const QString& fullFolderPath)
 {
 #ifdef __mobile__

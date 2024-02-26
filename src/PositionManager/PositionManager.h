@@ -60,6 +60,9 @@ signals:
     void gcsPositionHorizontalAccuracyChanged();
 
 private:
+    void _setupPositionSources(QGCToolbox *toolbox);
+
+private:
     int                 _updateInterval =   0;
     QGeoPositionInfo    _geoPositionInfo;
     QGeoCoordinate      _gcsPosition;
