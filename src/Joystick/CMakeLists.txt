@@ -7,7 +7,7 @@ if (ANDROID)
 	)
 endif()
 
-add_library(Joystick
+add_library(Joystick STATIC
 	Joystick.cc
 	JoystickManager.cc
 	JoystickSDL.cc

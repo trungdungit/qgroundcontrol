@@ -81,6 +81,7 @@ Rectangle {
                 QGCButton {
                     padding:            ScreenTools.defaultFontPixelWidth / 2
                     autoExclusive:      true
+		    text:               name
                     Layout.fillWidth:   true
                     icon.source:        iconUrl
                     visible:            pageVisible()

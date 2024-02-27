@@ -1,4 +1,4 @@
-add_library(Audio
+add_library(Audio STATIC
 	AudioOutput.cc
 )
 

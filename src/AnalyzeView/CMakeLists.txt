@@ -1,4 +1,4 @@
-add_library(AnalyzeView
+add_library(AnalyzeView STATIC
 	ExifParser.cc
 	ExifParser.h
 	GeoTagController.cc

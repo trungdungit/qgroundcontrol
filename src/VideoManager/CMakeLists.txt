@@ -1,4 +1,4 @@
-add_library(VideoManager
+add_library(VideoManager STATIC
     GLVideoItemStub.cc
     GLVideoItemStub.h
     SubtitleWriter.cc

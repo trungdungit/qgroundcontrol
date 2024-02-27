@@ -1,5 +1,5 @@
 
-add_library(VehicleSetup
+add_library(VehicleSetup STATIC
 	Bootloader.cc
 	Bootloader.h
 	FirmwareImage.cc

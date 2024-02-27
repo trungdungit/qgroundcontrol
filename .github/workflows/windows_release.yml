@@ -38,8 +38,8 @@ jobs:
         uses: hendrikmuhs/ccache-action@v1.2
         with:
           create-symlink: true
-          key: ${{ runner.os }}-Debug
-          restore-keys: ${{ runner.os }}-Debug
+          key: ${{ runner.os }}-Release
+          restore-keys: ${{ runner.os }}-Release
           max-size: "2G"
           append-timestamp: false
           variant: "sccache"
@@ -58,7 +58,7 @@ jobs:
           target:       desktop
           arch:         win64_msvc2019_64
           dir:          ${{ runner.temp }}
-          modules:      qtcharts qtlocation qtpositioning qtspeech qtquick3d qtmultimedia qtserialport qtimageformats qtshadertools
+          modules:      qtcharts qtlocation qtpositioning qtspeech qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d
           setup-python: false
           cache: true
 
@@ -90,13 +90,13 @@ jobs:
             cmd /c start /wait msiexec /package ${{ runner.temp }}\gstreamer-1.0-msvc-x86_64-1.18.1.msi /passive ADDLOCAL=ALL
             cmd /c start /wait msiexec /package ${{ runner.temp }}\gstreamer-1.0-devel-msvc-x86_64-1.18.1.msi /passive ADDLOCAL=ALL
 
-      - name: Create build directory
-        run:  mkdir ${{ runner.temp }}\shadow_build_dir
-
       - name: Set up Visual Studio shell
         uses: egor-tensin/vs-shell@v2
         with:
           arch: x64
+
+      - name: Create build directory
+        run:  mkdir ${{ runner.temp }}\shadow_build_dir
 
       - name: Build
         working-directory: ${{ runner.temp }}\shadow_build_dir

@@ -1,5 +1,5 @@
 
-add_library(FollowMe
+add_library(FollowMe STATIC
 	FollowMe.cc
 )
 

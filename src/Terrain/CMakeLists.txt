@@ -1,5 +1,5 @@
 
-add_library(Terrain
+add_library(Terrain STATIC
 	TerrainQuery.cc
 )
 

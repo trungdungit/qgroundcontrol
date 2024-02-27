@@ -1,4 +1,4 @@
-add_library(MissionManager
+add_library(MissionManager STATIC
 	BlankPlanCreator.cc
 	BlankPlanCreator.h
 	CameraCalc.cc

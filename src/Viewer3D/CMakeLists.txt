@@ -1,10 +1,10 @@
-add_library(Viewer3D
+add_library(Viewer3D STATIC
     CityMapGeometry.cc
     CityMapGeometry.h
     earcut.hpp
     OsmParser.cc
     OsmParser.h
-	Viewer3DManager.cc
+    Viewer3DManager.cc
     Viewer3DManager.h
     Viewer3DQmlBackend.cc
     Viewer3DQmlBackend.h

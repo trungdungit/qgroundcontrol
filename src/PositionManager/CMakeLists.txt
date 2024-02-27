@@ -1,5 +1,5 @@
 
-add_library(PositionManager
+add_library(PositionManager STATIC
 	PositionManager.cpp
 	SimulatedPosition.cc
 )

@@ -1,6 +1,6 @@
 add_subdirectory(FactControls)
 
-add_library(FactSystem
+add_library(FactSystem STATIC
 	Fact.cc
 	FactGroup.cc
 	FactGroup.h

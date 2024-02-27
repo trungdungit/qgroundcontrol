@@ -1,6 +1,6 @@
 add_subdirectory(Actuators)
 
-add_library(Vehicle
+add_library(Vehicle STATIC
 	Autotune.cpp
 	Autotune.h
 	CompInfo.cc

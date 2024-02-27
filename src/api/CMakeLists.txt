@@ -1,5 +1,5 @@
 
-add_library(api
+add_library(api STATIC
 	QGCCorePlugin.cc
 	QGCOptions.cc
 	QGCSettings.cc

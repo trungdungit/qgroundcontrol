@@ -48,6 +48,9 @@ else ()
     add_definitions(-DDAILY_BUILD)
 endif ()
 
+include(CMakeDependentOption)
+cmake_dependent_option(BUILD_TESTING "Enable testing" ON "CMAKE_BUILD_TYPE STREQUAL Debug" OFF)
+
 #######################################################
 #               OS Configuration
 #######################################################
@@ -192,9 +195,9 @@ if (ENABLE_VIDEOSTREAMING)
     find_package(PkgConfig)
 
     set(GST_DEPENDENCIES
-            gstreamer-1.0>=1.18
-            gstreamer-video-1.0>=1.18
-            gstreamer-gl-1.0>=1.18
+            gstreamer-1.0>=1.20
+            gstreamer-video-1.0>=1.20
+            gstreamer-gl-1.0>=1.20
     )
 
     if (LINUX OR ANDROID)
@@ -234,9 +237,11 @@ include(CompileOptions)
 #######################################################
 include_directories(
         libs/libevents
+
         libs/mavlink/include/mavlink/v2.0
         libs/mavlink/include/mavlink/v2.0/all
         libs/mavlink/include/mavlink/v2.0/common
+
         libs/shapelib
 )
 
@@ -267,6 +272,10 @@ else()
     list(APPEND QGC_RESOURCES
             ${CMAKE_CURRENT_SOURCE_DIR}/src/UTMSP/dummy/utmsp_dummy.qrc
     )
+endif()
+
+if (BUILD_TESTING)
+    list(APPEND QGC_RESOURCES ${CMAKE_CURRENT_SOURCE_DIR}/test/UnitTest.qrc)
 endif()
 
 #######################################################

@@ -40,7 +40,6 @@ ColumnLayout {
     ColumnLayout {
         id:         flowColumn
         width:      parent.width
-        anchors.centerIn:   parent
         spacing:    ScreenTools.defaultFontPixelHeight
 
         // Note for reminding the use of multiple buttons for the same action
