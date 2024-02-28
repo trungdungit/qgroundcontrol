@@ -58,6 +58,8 @@ jobs:
           max-size: "2G"
           append-timestamp: false
 
+        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+
       - name: Get all tags for correct version determination
         working-directory:  ${{ github.workspace }}
         run: |

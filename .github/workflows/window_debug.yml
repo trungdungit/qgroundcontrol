@@ -1,4 +1,4 @@
-name: Windows Release
+name: Windows Debug and Tests
 
 on:
   push:
@@ -38,19 +38,16 @@ jobs:
         uses: hendrikmuhs/ccache-action@v1.2
         with:
           create-symlink: true
-          key: ${{ runner.os }}-Release
-          restore-keys: ${{ runner.os }}-Release
+          key: ${{ runner.os }}-Debug
+          restore-keys: ${{ runner.os }}-Debug
           max-size: "2G"
           append-timestamp: false
           variant: "sccache"
-
-        if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
 
       - name: Get all tags for correct version determination
         working-directory:  ${{ github.workspace }}
         run: |
           git fetch --all --tags -f --depth 1
-
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
@@ -60,20 +57,9 @@ jobs:
           target:       desktop
           arch:         win64_msvc2019_64
           dir:          ${{ runner.temp }}
-          modules:      qtcharts qtlocation qtpositioning qtspeech qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d
-          setup-python: false
+          modules:      qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d
+          setup-python: true
           cache: true
-
-      - name: Download JOM
-        uses: suisei-cn/actions-download-file@v1.6.0
-        with:
-          url:    http://download.qt.io/official_releases/jom/jom.zip
-          target: ${{ runner.temp }}\
-
-      - name: Unzip JOM
-        working-directory: ${{ runner.temp }}
-        run:  |
-              7z x jom.zip -ojom
 
       - name: Download Gstreamer
         uses: suisei-cn/actions-download-file@v1.6.0
@@ -91,7 +77,9 @@ jobs:
         run:  |
             cmd /c start /wait msiexec /package ${{ runner.temp }}\gstreamer-1.0-msvc-x86_64-1.18.1.msi /passive ADDLOCAL=ALL
             cmd /c start /wait msiexec /package ${{ runner.temp }}\gstreamer-1.0-devel-msvc-x86_64-1.18.1.msi /passive ADDLOCAL=ALL
-
+      - name: Install Dependencies
+        run:  |
+            python -m pip install ninja
       - name: Set up Visual Studio shell
         uses: egor-tensin/vs-shell@v2
         with:
@@ -103,19 +91,9 @@ jobs:
       - name: Build
         working-directory: ${{ runner.temp }}\shadow_build_dir
         run:  |
-              qmake -r ${{ env.SOURCE_DIR }}\qgroundcontrol.pro CONFIG+=installer CONFIG+=${{ env. BUILD_TYPE }}
-              ${{ runner.temp }}\jom\jom -j2
-
-      - name: Save PDB artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: qgroundcontrol.pdb
-          path: ${{ runner.temp }}\shadow_build_dir\staging\qgroundcontrol.pdb
-
-      - name: Upload Build File
-        uses: ./.github/actions/upload
-        with:
-          artifact_name: ${{ env.ARTIFACT }}
-          aws_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          source: 'staging'
+              cmake -S ${{ env.SOURCE_DIR }} -B ${{ env.SOURCE_DIR }}\shadow_build_dir -G Ninja -DCMAKE_BUILD_TYPE=Debug
+              cmake --build ${{ env.SOURCE_DIR }}\shadow_build_dir --target all
+              cmake --install ${{ env.SOURCE_DIR }}\shadow_build_dir
+      # - name: Run unit tests
+      #   working-directory: ${{ runner.temp }}\shadow_build_dir
+      #   run: ${{ env.SOURCE_DIR }}\shadow_build_dir\staging\bin\QGroundControl.exe --unittest
