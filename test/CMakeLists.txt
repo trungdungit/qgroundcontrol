@@ -1,4 +1,4 @@
-if (BUILD_TESTING)
+if (QGC_BUILD_TESTING)
     add_library(qgctest
         STATIC
             UnitTestList.cc

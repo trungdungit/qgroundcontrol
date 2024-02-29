@@ -131,7 +131,8 @@ void BluetoothLink::_createSocket()
     QObject::connect(_targetSocket, &QBluetoothSocket::readyRead, this, &BluetoothLink::readBytes);
     QObject::connect(_targetSocket, &QBluetoothSocket::disconnected, this, &BluetoothLink::deviceDisconnected);
 
-    QObject::connect(_targetSocket, &QBluetoothSocket::errorOccurred, this, &BluetoothLink::deviceError);
+//    QObject::connect(_targetSocket, &QBluetoothSocket::error, this, &BluetoothLink::deviceError);
+    QObject::connect(_targetSocket, QOverload<QBluetoothSocket::SocketError>::of(&QBluetoothSocket::error), this, &BluetoothLink::deviceError);
 }
 
 #ifdef __ios__

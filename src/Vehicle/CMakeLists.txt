@@ -1,3 +1,4 @@
+
 add_subdirectory(Actuators)
 
 add_library(Vehicle STATIC
@@ -89,7 +90,6 @@ add_library(Vehicle STATIC
         VehicleHygrometerFactGroup.h
 	RemoteIDManager.h
 	RemoteIDManager.cc
-
 )
 
 target_link_libraries(Vehicle
@@ -103,4 +103,8 @@ target_link_libraries(Vehicle
 		qgc
 )
 
-target_include_directories(Vehicle INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(Vehicle
+	PUBLIC
+		${CMAKE_CURRENT_SOURCE_DIR}
+		${CMAKE_SOURCE_DIR}/libs/libevents
+)

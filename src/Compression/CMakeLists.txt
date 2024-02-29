@@ -6,7 +6,7 @@ add_library(compression STATIC
 	QGCLZMA.h
 	QGCZlib.cc
 	QGCZlib.h
-	
+
 	${XZ_EMBEDDED_DIR}/linux/include/linux/xz.h
 	${XZ_EMBEDDED_DIR}/linux/lib/xz/xz_lzma2.h
 	${XZ_EMBEDDED_DIR}/linux/lib/xz/xz_private.h
@@ -21,8 +21,11 @@ add_library(compression STATIC
 target_compile_definitions(compression PRIVATE XZ_DEC_ANY_CHECK XZ_USE_CRC64)
 
 target_link_libraries(compression
-	Qt5::Core
-	qgc
+	PRIVATE
+        z # zlib
+	PUBLIC
+		Qt5::Core
+		qgc
 )
 
 target_include_directories(compression
@@ -32,4 +35,3 @@ target_include_directories(compression
 		${XZ_EMBEDDED_DIR}/userspace
 		${XZ_EMBEDDED_DIR}/linux/include/linux
 )
-

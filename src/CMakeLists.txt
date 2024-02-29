@@ -9,7 +9,7 @@ project(qgc)
 include_directories(
         ${CMAKE_CURRENT_SOURCE_DIR}
         ${CMAKE_CURRENT_BINARY_DIR}
-        ${Qt5Location_PRIVATE_INCLUDE_DIRS}
+        ${Qt6Location_PRIVATE_INCLUDE_DIRS}
 )
 
 #######################################################
@@ -27,7 +27,6 @@ endif ()
 #######################################################
 #             Source Files
 #######################################################
-
 add_library(${PROJECT_NAME} STATIC
         ${EXTRA_SRC}
 
@@ -104,6 +103,7 @@ add_subdirectory(PositionManager)
 add_subdirectory(QmlControls)
 add_subdirectory(QtLocationPlugin)
 add_subdirectory(Settings)
+option(QGC_AIRLINK_DISABLED "Enable airlink" OFF)
 if (NOT ${QGC_AIRLINK_DISABLED})
     add_subdirectory(AirLink)
 endif()
@@ -149,25 +149,28 @@ target_link_libraries(${PROJECT_NAME}
             Settings
             Terrain
             uas
-	    UTMSP
+            UTMSP
             Vehicle
             VehicleSetup
             VideoManager
-	    Viewer3D
-            z # zlib
+            Viewer3D
 )
 
-if (NOT ${QGC_AIRLINK_DISABLED})
+if(NOT QT_MKSPEC MATCHES "winrt")
+    target_link_libraries(${PROJECT_NAME}
+        PUBLIC
+            Qt5::SerialPort
+        )
+endif()
+
+if(NOT ${QGC_AIRLINK_DISABLED})
     target_link_libraries(${PROJECT_NAME} PUBLIC AirLink)
 else()
     target_compile_definitions(${PROJECT_NAME} PUBLIC QGC_AIRLINK_DISABLED)
 endif()
 
 target_include_directories(${PROJECT_NAME}
-        PUBLIC
+    PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_BINARY_DIR}/ui/ui_autogen/include # HACK: AUTOUIC paths not inheriting?
-        ${CMAKE_CURRENT_BINARY_DIR}/ui/ui_autogen/include_Debug
-        ${CMAKE_CURRENT_BINARY_DIR}/qgc_autogen/include # HACK: AUTOUIC paths not inheriting?
-        ${CMAKE_CURRENT_BINARY_DIR}/qgc_autogen/include_Debug
+        ${CMAKE_SOURCE_DIR}/libs/shapelib
 )
