@@ -48,6 +48,7 @@ jobs:
         working-directory:  ${{ github.workspace }}
         run: |
           git fetch --all --tags -f --depth 1
+
       - name: Install Qt
         uses: jurplel/install-qt-action@v3
         with:
@@ -59,7 +60,7 @@ jobs:
           dir:          ${{ runner.temp }}
           modules:      qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d
           setup-python: true
-          cache: true
+          cache:        true
 
       - name: Download Gstreamer
         uses: suisei-cn/actions-download-file@v1.6.0
@@ -77,11 +78,13 @@ jobs:
         run:  |
             cmd /c start /wait msiexec /package ${{ runner.temp }}\gstreamer-1.0-msvc-x86_64-1.18.1.msi /passive ADDLOCAL=ALL
             cmd /c start /wait msiexec /package ${{ runner.temp }}\gstreamer-1.0-devel-msvc-x86_64-1.18.1.msi /passive ADDLOCAL=ALL
+
       - name: Install Dependencies
         run:  |
             python -m pip install ninja
+
       - name: Set up Visual Studio shell
-        uses: egor-tensin/vs-shell@v2
+        uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x64
 
@@ -91,9 +94,16 @@ jobs:
       - name: Build
         working-directory: ${{ runner.temp }}\shadow_build_dir
         run:  |
-              cmake -S ${{ env.SOURCE_DIR }} -B ${{ env.SOURCE_DIR }}\shadow_build_dir -G Ninja -DCMAKE_BUILD_TYPE=Debug
-              cmake --build ${{ env.SOURCE_DIR }}\shadow_build_dir --target all
-              cmake --install ${{ env.SOURCE_DIR }}\shadow_build_dir
+              cmake -S ${{ env.SOURCE_DIR }} -B ${{ runner.temp }}\shadow_build_dir -G Ninja -DCMAKE_BUILD_TYPE=Debug
+              cmake --build ${{ runner.temp }}\shadow_build_dir --target all --config Debug
+              cmake --install ${{ runner.temp }}\shadow_build_dir
+
+      - name: Save PDB artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: qgroundcontrol.pdb
+          path: ${{ runner.temp }}\shadow_build_dir\staging\qgroundcontrol.pdb
+
       # - name: Run unit tests
       #   working-directory: ${{ runner.temp }}\shadow_build_dir
-      #   run: ${{ env.SOURCE_DIR }}\shadow_build_dir\staging\bin\QGroundControl.exe --unittest
+      #   run: ${{ runner.temp }}\shadow_build_dir\staging\bin\QGroundControl.exe --unittest

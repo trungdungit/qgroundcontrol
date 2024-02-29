@@ -43,7 +43,6 @@ jobs:
           max-size: "2G"
           append-timestamp: false
           variant: "sccache"
-
         if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
 
       - name: Get all tags for correct version determination
@@ -60,9 +59,9 @@ jobs:
           target:       desktop
           arch:         win64_msvc2019_64
           dir:          ${{ runner.temp }}
-          modules:      qtcharts qtlocation qtpositioning qtspeech qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d
+          modules:      qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d
           setup-python: false
-          cache: true
+          cache:        true
 
       - name: Download JOM
         uses: suisei-cn/actions-download-file@v1.6.0
@@ -93,7 +92,7 @@ jobs:
             cmd /c start /wait msiexec /package ${{ runner.temp }}\gstreamer-1.0-devel-msvc-x86_64-1.18.1.msi /passive ADDLOCAL=ALL
 
       - name: Set up Visual Studio shell
-        uses: egor-tensin/vs-shell@v2
+        uses: ilammy/msvc-dev-cmd@v1
         with:
           arch: x64
 
@@ -105,12 +104,6 @@ jobs:
         run:  |
               qmake -r ${{ env.SOURCE_DIR }}\qgroundcontrol.pro CONFIG+=installer CONFIG+=${{ env. BUILD_TYPE }}
               ${{ runner.temp }}\jom\jom -j2
-
-      - name: Save PDB artifact
-        uses: actions/upload-artifact@master
-        with:
-          name: qgroundcontrol.pdb
-          path: ${{ runner.temp }}\shadow_build_dir\staging\qgroundcontrol.pdb
 
       - name: Upload Build File
         uses: ./.github/actions/upload
