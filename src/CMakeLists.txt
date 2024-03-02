@@ -152,13 +152,6 @@ target_link_libraries(${PROJECT_NAME}
             Viewer3D
 )
 
-if(NOT QT_MKSPEC MATCHES "winrt")
-    target_link_libraries(${PROJECT_NAME}
-        PUBLIC
-            Qt5::SerialPort
-        )
-endif()
-
 if(NOT ${QGC_AIRLINK_DISABLED})
     target_link_libraries(${PROJECT_NAME} PUBLIC AirLink)
 else()
