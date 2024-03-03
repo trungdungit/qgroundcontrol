@@ -35,8 +35,6 @@ Item {
     property bool   _hasZoom:           _camera && _camera.hasZoom
     property int    _fitMode:           QGroundControl.settingsManager.videoSettings.videoFit.rawValue
 
-    property double _thermalHeightFactor: 0.85 //-- TODO
-
     function getWidth() {
         return videoBackground.getWidth()
     }
@@ -44,31 +42,33 @@ Item {
         return videoBackground.getHeight()
     }
 
-    Image {
-        id:             noVideo
-        anchors.fill:   parent
-        source:         "/res/NoVideoBackground.jpg"
-        fillMode:       Image.PreserveAspectCrop
-        visible:        !(QGroundControl.videoManager.decoding)
+    property double _thermalHeightFactor: 0.85 //-- TODO
 
-        Rectangle {
-            anchors.centerIn:   parent
-            width:              noVideoLabel.contentWidth + ScreenTools.defaultFontPixelHeight
-            height:             noVideoLabel.contentHeight + ScreenTools.defaultFontPixelHeight
-            radius:             ScreenTools.defaultFontPixelWidth / 2
-            color:              "black"
-            opacity:            0.5
-        }
+        Image {
+            id:             noVideo
+            anchors.fill:   parent
+            source:         "/res/NoVideoBackground.jpg"
+            fillMode:       Image.PreserveAspectCrop
+            visible:        !(QGroundControl.videoManager.decoding)
 
-        QGCLabel {
-            id:                 noVideoLabel
-            text:               QGroundControl.settingsManager.videoSettings.streamEnabled.rawValue ? qsTr("WAITING FOR VIDEO") : qsTr("VIDEO DISABLED")
-            font.family:        ScreenTools.demiboldFontFamily
-            color:              "white"
-            font.pointSize:     useSmallFont ? ScreenTools.smallFontPointSize : ScreenTools.largeFontPointSize
-            anchors.centerIn:   parent
+            Rectangle {
+                anchors.centerIn:   parent
+                width:              noVideoLabel.contentWidth + ScreenTools.defaultFontPixelHeight
+                height:             noVideoLabel.contentHeight + ScreenTools.defaultFontPixelHeight
+                radius:             ScreenTools.defaultFontPixelWidth / 2
+                color:              "black"
+                opacity:            0.5
+            }
+
+            QGCLabel {
+                id:                 noVideoLabel
+                text:               QGroundControl.settingsManager.videoSettings.streamEnabled.rawValue ? qsTr("WAITING FOR VIDEO") : qsTr("VIDEO DISABLED")
+                font.family:        ScreenTools.demiboldFontFamily
+                color:              "white"
+                font.pointSize:     useSmallFont ? ScreenTools.smallFontPointSize : ScreenTools.largeFontPointSize
+                anchors.centerIn:   parent
+            }
         }
-    }
 
     Rectangle {
         id:             videoBackground
@@ -155,12 +155,12 @@ Item {
         Item {
             id:                 thermalItem
             width:              height * QGroundControl.videoManager.thermalAspectRatio
-            height:             _camera ? (_camera.thermalMode === QGCCameraControl.THERMAL_FULL ? parent.height : (_camera.thermalMode === QGCCameraControl.THERMAL_PIP ? ScreenTools.defaultFontPixelHeight * 12 : parent.height * _thermalHeightFactor)) : 0
+            height:             _camera ? (_camera.thermalMode === MavlinkCameraControl.THERMAL_FULL ? parent.height : (_camera.thermalMode === MavlinkCameraControl.THERMAL_PIP ? ScreenTools.defaultFontPixelHeight * 12 : parent.height * _thermalHeightFactor)) : 0
             anchors.centerIn:   parent
-            visible:            QGroundControl.videoManager.hasThermal && _camera.thermalMode !== QGCCameraControl.THERMAL_OFF
+            visible:            QGroundControl.videoManager.hasThermal && _camera.thermalMode !== MavlinkCameraControl.THERMAL_OFF
             function pipOrNot() {
                 if(_camera) {
-                    if(_camera.thermalMode === QGCCameraControl.THERMAL_PIP) {
+                    if(_camera.thermalMode === MavlinkCameraControl.THERMAL_PIP) {
                         anchors.centerIn    = undefined
                         anchors.top         = parent.top
                         anchors.topMargin   = mainWindow.header.height + (ScreenTools.defaultFontPixelHeight * 0.5)
@@ -187,7 +187,7 @@ Item {
                 objectName:     "thermalVideo"
                 anchors.fill:   parent
                 receiver:       QGroundControl.videoManager.thermalVideoReceiver
-                opacity:        _camera ? (_camera.thermalMode === QGCCameraControl.THERMAL_BLEND ? _camera.thermalOpacity / 100 : 1.0) : 0
+                opacity:        _camera ? (_camera.thermalMode === MavlinkCameraControl.THERMAL_BLEND ? _camera.thermalOpacity / 100 : 1.0) : 0
             }
         }
         //-- Zoom

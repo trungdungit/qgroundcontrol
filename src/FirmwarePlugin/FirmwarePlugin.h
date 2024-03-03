@@ -7,12 +7,8 @@
  *
  ****************************************************************************/
 
-
+#pragma once
 /// @file
-///     @author Don Gagne <don@thegagnes.com>
-
-#ifndef FirmwarePlugin_H
-#define FirmwarePlugin_H
 
 #include "QGCMAVLink.h"
 #include "VehicleComponent.h"
@@ -26,7 +22,7 @@
 #include <QVariantList>
 
 class Vehicle;
-class QGCCameraControl;
+class MavlinkCameraControl;
 class QGCCameraManager;
 class Autotune;
 
@@ -159,8 +155,8 @@ public:
     virtual double minimumEquivalentAirspeed(Vehicle* /*vehicle*/) { return NAN; }
 
     /// @return Return true if the GCS has enabled Grip_enable option
-    virtual bool hasGripper(const Vehicle* /*vehicle*/) const { return false; } 
-    
+    virtual bool hasGripper(const Vehicle* /*vehicle*/) const { return false; }
+
     /// @return Return true if we have received the ground speed limits for the mulirotor.
     virtual bool mulirotorSpeedLimitsAvailable(Vehicle* /*vehicle*/) { return false; }
 
@@ -178,7 +174,7 @@ public:
     ///     @param pauseVehicle true: pause vehicle prior to altitude change
     virtual void guidedModeChangeAltitude(Vehicle* vehicle, double altitudeChange, bool pauseVehicle);
 
-        /// Command vehicle to change groundspeed
+    /// Command vehicle to change groundspeed
     ///     @param groundspeed Groundspeed in m/s
     virtual void guidedModeChangeGroundSpeedMetersSecond(Vehicle* vehicle, double groundspeed);
 
@@ -313,7 +309,7 @@ public:
     virtual QGCCameraManager* createCameraManager(Vehicle *vehicle);
 
     /// Camera control.
-    virtual QGCCameraControl* createCameraControl(const mavlink_camera_information_t* info, Vehicle* vehicle, int compID, QObject* parent = nullptr);
+    virtual MavlinkCameraControl* createCameraControl(const mavlink_camera_information_t* info, Vehicle* vehicle, int compID, QObject* parent = nullptr);
 
     /// Returns a pointer to a dictionary of firmware-specific FactGroups
     virtual QMap<QString, FactGroup*>* factGroups(void);
@@ -426,5 +422,3 @@ public:
 private:
     QList<FirmwarePluginFactory*> _factoryList;
 };
-
-#endif
