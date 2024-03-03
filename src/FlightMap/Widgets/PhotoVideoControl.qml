@@ -538,7 +538,7 @@ Rectangle {
                                 id:                 resetPrompt
                                 title:              qsTr("Reset Camera to Factory Settings")
                                 text:               qsTr("Confirm resetting all settings?")
-                                buttons:            MessageDialog.Yes | MessageDialog.No
+                                standardButtons:    MessageDialog.Yes | MessageDialog.No
 
                                 onButtonClicked: function (button, role) {
                                     switch (button) {
@@ -563,7 +563,7 @@ Rectangle {
                                 id:                 formatPrompt
                                 title:              qsTr("Format Camera Storage")
                                 text:               qsTr("Confirm erasing all files?")
-                                buttons:            MessageDialog.Yes | MessageDialog.No
+                                standardButtons:    MessageDialog.Yes | MessageDialog.No
 
                                 onButtonClicked: function (button, role) {
                                     switch (button) {
