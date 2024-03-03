@@ -230,14 +230,12 @@ Item {
             enabled:     _utmspEnabled ? !_controllerSyncInProgress && responseFlag : !_controllerSyncInProgress
             visible:     !_controllerOffline && !_controllerSyncInProgress
             primary:     _controllerDirty
-            onClicked:   {
-                if(_utmspEnabled){
-                    _planMasterController.upload()
-                    QGroundControl.utmspManager.utmspVehicle.triggerUploadButton(true)
+            onClicked: {
+                if (_utmspEnabled) {
+                    QGroundControl.utmspManager.utmspVehicle.triggerActivationStatusBar(true);
+                    UTMSPStateStorage.removeFlightPlanState = true
                 }
-                else{
-                    _planMasterController.upload()
-                }
+                _planMasterController.upload();
             }
 
             PropertyAnimation on opacity {
@@ -248,23 +246,6 @@ Item {
                 running:        _controllerDirty && !_controllerSyncInProgress
                 alwaysRunToEnd: true
                 duration:       2000
-            }
-        }
-    }
-
-    // Small mission download progress bar
-    Rectangle {
-        id:             progressBar
-        anchors.left:   parent.left
-        anchors.bottom: parent.bottom
-        height:         4
-        width:          _controllerProgressPct * parent.width
-        color:          qgcPal.colorGreen
-        visible:        false
-
-        onVisibleChanged: {
-            if (visible) {
-                largeProgressBar._userHide = false
             }
         }
     }
