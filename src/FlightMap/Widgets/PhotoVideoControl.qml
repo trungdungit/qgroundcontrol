@@ -68,10 +68,9 @@ Rectangle {
                 Layout.alignment:   Qt.AlignHCenter
                 Layout.fillHeight:  true
                 orientation:        Qt.Vertical
-                to:                 100
-                from:               0
+                maximumValue:       100
+                minimumValue:       0
                 value:              _camera.zoomLevel
-                live:               true
                 onValueChanged:     _camera.zoomLevel = value
             }
         }
@@ -432,10 +431,9 @@ Rectangle {
 
                         QGCSlider {
                             Layout.fillWidth:   true
-                            to:                 100
-                            from:               0
+                            maximumValue:       100
+                            minimumValue:       0
                             value:              _camera.thermalOpacity
-                            live:               true
                             visible:            _camera.thermalStreamInstance && _camera.thermalMode === MavlinkCameraControl.THERMAL_BLEND
                             onValueChanged:     _camera.thermalOpacity = value
                         }
@@ -468,11 +466,10 @@ Rectangle {
                                 }
                                 QGCSlider {
                                     Layout.fillWidth:           true
-                                    to:               parent._fact.max
-                                    from:               parent._fact.min
+                                    maximumValue:               parent._fact.max
+                                    minimumValue:               parent._fact.min
                                     stepSize:                   parent._fact.increment
                                     visible:                    parent._isSlider
-                                    live:   false
                                     property bool initialized:  false
 
                                     onValueChanged: {
@@ -506,12 +503,11 @@ Rectangle {
 
                         QGCSlider {
                             Layout.fillWidth:   true
-                            to:                 60
-                            from:               1
+                            maximumValue:       60
+                            minimumValue:       1
                             stepSize:           1
                             value:              _camera.photoLapse
                             displayValue:       true
-                            live:               true
                             visible:            _camera.capturesPhotos && _camera.photoCaptureMode === MavlinkCameraControl.PHOTO_CAPTURE_TIMELAPSE
                             onValueChanged:     _camera.photoLapse = value
                         }
