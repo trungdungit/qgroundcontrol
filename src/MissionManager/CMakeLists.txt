@@ -19,6 +19,10 @@ add_library(MissionManager STATIC
 	GeoFenceController.h
 	GeoFenceManager.cc
 	GeoFenceManager.h
+	KMLDomDocument.cc
+    	KMLDomDocument.h
+    	KMLHelper.cc
+    	KMLHelper.h
 	KMLPlanDomDocument.cc
 	KMLPlanDomDocument.h
 	LandingComplexItem.cc
@@ -82,8 +86,6 @@ add_library(MissionManager STATIC
 	VisualMissionItem.h
 	VTOLLandingComplexItem.cc
 	VTOLLandingComplexItem.h
-
-	Section.h # shouldn't be listed here, but isn't named properly for AUTOMOC
 )
 
 add_custom_Target(MisionManagerQml
@@ -100,4 +102,7 @@ target_link_libraries(MissionManager
 		qgc
 )
 
-target_include_directories(MissionManager INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(MissionManager
+	PUBLIC
+		${CMAKE_CURRENT_SOURCE_DIR}
+)

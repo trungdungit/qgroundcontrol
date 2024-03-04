@@ -13,61 +13,19 @@ include_directories(
 )
 
 #######################################################
-#               Mobile Specific Sources
-#######################################################
-set(EXTRA_SRC)
-
-if (MOBILE)
-    list(APPEND EXTRA_SRC
-            MobileScreenMgr.cc
-            MobileScreenMgr.h
-    )
-endif ()
-
-#######################################################
 #             Source Files
 #######################################################
 add_library(${PROJECT_NAME} STATIC
-        ${EXTRA_SRC}
-
         CmdLineOptParser.cc
         CmdLineOptParser.h
-        JsonHelper.cc
-        JsonHelper.h
-        KMLDomDocument.cc
-        KMLDomDocument.h
-        KMLHelper.cc
-        KMLHelper.h
         main.cc
-        QGC.cc
-        QGC.h
         QGCApplication.cc
         QGCApplication.h
-        QGCCachedFileDownload.cc
-        QGCCachedFileDownload.h
         QGCConfig.h
-        QGCFileDownload.cc
-        QGCFileDownload.h
-        QGCLoggingCategory.cc
-        QGCLoggingCategory.h
-        QGCMapPalette.cc
-        QGCMapPalette.h
-        QGCPalette.cc
-        QGCPalette.h
-        QGCQGeoCoordinate.cc
-        QGCQGeoCoordinate.h
-        QGCTemporaryFile.cc
-        QGCTemporaryFile.h
         QGCToolbox.cc
         QGCToolbox.h
         RunGuard.cc
         RunGuard.h
-        ShapeFileHelper.cc
-        ShapeFileHelper.h
-        SHPFileHelper.cc
-        SHPFileHelper.h
-        TerrainTile.cc
-        TerrainTile.h
 )
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE pch.h)
@@ -104,7 +62,7 @@ if (NOT ${QGC_AIRLINK_DISABLED})
     add_subdirectory(AirLink)
 endif()
 add_subdirectory(Terrain)
-add_subdirectory(uas)
+add_subdirectory(Utilities)
 add_subdirectory(UTMSP)
 add_subdirectory(Vehicle)
 add_subdirectory(VehicleSetup)
@@ -117,7 +75,6 @@ add_subdirectory(Viewer3D)
 #######################################################
 target_link_libraries(${PROJECT_NAME}
         PRIVATE
-            shp
             Qt5::QuickControls2
         PUBLIC
             Qt5::QuickWidgets
@@ -144,7 +101,7 @@ target_link_libraries(${PROJECT_NAME}
             QtLocationPlugin
             Settings
             Terrain
-            uas
+            Utilities
             UTMSP
             Vehicle
             VehicleSetup
@@ -161,5 +118,4 @@ endif()
 target_include_directories(${PROJECT_NAME}
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_SOURCE_DIR}/libs/shapelib
 )

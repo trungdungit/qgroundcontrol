@@ -50,6 +50,8 @@ add_library(Vehicle STATIC
 	TerrainProtocolHandler.h
 	TrajectoryPoints.cc
 	TrajectoryPoints.h
+	UASMessageHandler.cc
+	UASMessageHandler.h
 	VehicleBatteryFactGroup.cc
 	VehicleBatteryFactGroup.h
 	Vehicle.cc
