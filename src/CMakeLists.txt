@@ -4,15 +4,6 @@
 project(qgc)
 
 #######################################################
-#               Directory Inclusion
-#######################################################
-include_directories(
-        ${CMAKE_CURRENT_SOURCE_DIR}
-        ${CMAKE_CURRENT_BINARY_DIR}
-        ${Qt6Location_PRIVATE_INCLUDE_DIRS}
-)
-
-#######################################################
 #             Source Files
 #######################################################
 add_library(${PROJECT_NAME} STATIC
@@ -24,8 +15,6 @@ add_library(${PROJECT_NAME} STATIC
         QGCConfig.h
         QGCToolbox.cc
         QGCToolbox.h
-        RunGuard.cc
-        RunGuard.h
 )
 
 target_precompile_headers(${PROJECT_NAME} PRIVATE pch.h)
@@ -119,3 +108,26 @@ target_include_directories(${PROJECT_NAME}
     PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}
 )
+
+if(ANDROID)
+    target_sources(${PROJECT_NAME}
+        PRIVATE
+            ${CMAKE_SOURCE_DIR}/android/src/AndroidInterface.cc
+            ${CMAKE_SOURCE_DIR}/android/src/AndroidInterface.h
+    )
+    target_link_libraries(${PROJECT_NAME}
+        PUBLIC
+            qtandroidserialport
+    )
+
+    target_include_directories(${PROJECT_NAME}
+        PUBLIC
+            ${CMAKE_SOURCE_DIR}/android/src
+    )
+else()
+    target_sources(${PROJECT_NAME}
+        PRIVATE
+            RunGuard.cc
+            RunGuard.h
+    )
+endif()

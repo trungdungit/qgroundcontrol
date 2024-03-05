@@ -87,7 +87,9 @@ public:
     bool setParity(QSerialPort::Parity parity);
     bool setStopBits(QSerialPort::StopBits stopBits);
     bool setFlowControl(QSerialPort::FlowControl flowControl);
-    bool setDataErrorPolicy(QSerialPort::DataErrorPolicy policy);
+    #if QT_DEPRECATED_SINCE(5, 2)
+        bool setDataErrorPolicy(QSerialPort::DataErrorPolicy policy);
+    #endif
 
     bool startAsyncWrite();
     bool completeAsyncWrite();

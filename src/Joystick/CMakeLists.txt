@@ -5,12 +5,15 @@ if (ANDROID)
 	list(APPEND EXTRA_SRC
 		JoystickAndroid.cc
 	)
+else()
+	list(APPEND EXTRA_SRC
+		JoystickSDL.cc
+	)
 endif()
 
 add_library(Joystick STATIC
 	Joystick.cc
 	JoystickManager.cc
-	JoystickSDL.cc
 	JoystickMavCommand.cc
 	${EXTRA_SRC}
 )
