@@ -10,7 +10,7 @@ Canvas {
     width:  _width
     height: _height
 
-    signal clicked
+    signal clicked(point position)
 
     property string label                           ///< Label to show to the side of the index indicator
     property int    index:                  0       ///< Index to show in the indicator, 0 will show single char label instead, -1 first char of label in indicator full label to the side
@@ -145,7 +145,7 @@ Canvas {
         fillItem:   mouseAreaFill
         onClicked: {
             focus = true
-            parent.clicked()
+            parent.clicked(Qt.point(mouse.x, mouse.y))
         }
     }
 }
