@@ -19,7 +19,7 @@
 #endif
 
 #if QT_VERSION < QT_VERSION_CHECK(6, 1, 0)
-#ifdef __android__
+#ifdef Q_OS_ANDROID
 #include "JoystickAndroid.h"
 #endif
 #endif
@@ -61,7 +61,7 @@ void JoystickManager::init() {
         return;
     }
     _setActiveJoystickFromSettings();
-#elif defined(__android__)
+#elif defined(Q_OS_ANDROID)
 #if QT_VERSION < QT_VERSION_CHECK(6, 1, 0)
     if (!JoystickAndroid::init(this)) {
         return;
@@ -81,7 +81,7 @@ void JoystickManager::_setActiveJoystickFromSettings(void)
 #ifdef __sdljoystick__
     // Get the latest joystick mapping
     newMap = JoystickSDL::discover(_multiVehicleManager);
-#elif defined(__android__)
+#elif defined(Q_OS_ANDROID)
 #if QT_VERSION < QT_VERSION_CHECK(6, 1, 0)
     newMap = JoystickAndroid::discover(_multiVehicleManager);
 #endif
@@ -216,7 +216,7 @@ void JoystickManager::_updateAvailableJoysticks()
             break;
         }
     }
-#elif defined(__android__)
+#elif defined(Q_OS_ANDROID)
     _joystickCheckTimerCounter--;
     _setActiveJoystickFromSettings();
     if (_joystickCheckTimerCounter <= 0) {

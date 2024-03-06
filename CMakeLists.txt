@@ -38,18 +38,17 @@ if(QGC_STABLE_BUILD)
     message(STATUS "Stable Build")
 else()
     message(STATUS "Daily Build")
-    add_definitions(-DDAILY_BUILD)
+    add_compile_definitions(DAILY_BUILD)
 endif()
 
 include(CMakeDependentOption)
 cmake_dependent_option(QGC_BUILD_TESTING "Enable testing" ON "CMAKE_BUILD_TYPE STREQUAL Debug" OFF)
 
+include(CompileOptions)
+
 #######################################################
 #               Qt5 Configuration
 #######################################################
-
-add_compile_definitions(QT_DISABLE_DEPRECATED_BEFORE=0x050F00)
-add_compile_definitions(QT_DEBUG_FIND_PACKAGE=ON)
 
 include(Qt5QGCConfiguration)
 message(STATUS "Build Type: ${CMAKE_BUILD_TYPE}")
@@ -85,7 +84,7 @@ find_package(Qt5
     OPTIONAL_COMPONENTS
         SerialPort
     HINTS
-        {QT_LIBRARY_HINTS}
+        ${QT_LIBRARY_HINTS}
 )
 
 # this is required since user can have Qt5 and Qt6 installed at the same time, and then Qt_DIR
@@ -117,8 +116,10 @@ option(QGC_DEBUG_QML "Build QGroundControl with QML debugging/profiling support.
 add_feature_info(DEBUG_QML DEBUG_QML "Build QGroundControl with QML debugging/profiling support.")
 if(QGC_DEBUG_QML)
     message(STATUS "To enable the QML debugger/profiler, run with: '-qmljsdebugger=port:1234'")
-    add_definitions(-DQMLJSDEBUGGER)
-    add_definitions(-DQT_QML_DEBUG)
+    add_compile_definitions(
+        QMLJSDEBUGGER
+        QT_QML_DEBUG
+    )
 endif()
 
 #######################################################
@@ -129,10 +130,10 @@ set(COMPANY "Mavlink")
 set(COPYRIGHT "Copyright (c) 2018 QGroundControl. All rights reserved.")
 set(IDENTIFIER "io.mavlink.qgroundcontrol")
 
-add_definitions(
-    -DQGC_APPLICATION_NAME="QGroundControl"
-    -DQGC_ORG_NAME="QGroundControl.org"
-    -DQGC_ORG_DOMAIN="org.qgroundcontrol"
+add_compile_definitions(
+    QGC_APPLICATION_NAME="QGroundControl"
+    QGC_ORG_NAME="QGroundControl.org"
+    QGC_ORG_DOMAIN="org.qgroundcontrol"
 )
 
 #######################################################
@@ -142,8 +143,6 @@ add_definitions(
 include(Git)
 message(STATUS "QGroundControl version: ${APP_VERSION_STR}")
 # set_target_properties(${PROJECT_NAME} PROPERTIES VERSION 1.0)
-
-include(CompileOptions)
 
 #######################################################
 #                QGroundControl Resources
