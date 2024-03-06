@@ -86,8 +86,8 @@ ApplicationWindow {
         readonly property var       activeVehicle:                  QGroundControl.multiVehicleManager.activeVehicle
         readonly property real      defaultTextHeight:              ScreenTools.defaultFontPixelHeight
         readonly property real      defaultTextWidth:               ScreenTools.defaultFontPixelWidth
-        readonly property var       planMasterControllerFlyView:    flightView.planController
-        readonly property var       guidedControllerFlyView:        flightView.guidedController
+        readonly property var       planMasterControllerFlyView:    flyView.planController
+        readonly property var       guidedControllerFlyView:        flyView.guidedController
 
         property bool               validationError:                false   // There is a FactTextField somewhere with a validation error
 
