@@ -117,11 +117,17 @@ ApplicationWindow {
     }
 
     function showPlanView() {
+        flyView.visible = false
         planView.visible = true
     }
 
+    function showFlyView() {
+        flyView.visible = true
+        planView.visible = false
+    }
+
     function showTool(toolTitle, toolSource, toolIcon) {
-        toolDrawer.backIcon     = flightView.visible ? "/qmlimages/PaperPlane.svg" : "/qmlimages/Plan.svg"
+        toolDrawer.backIcon     = flyView.visible ? "/qmlimages/PaperPlane.svg" : "/qmlimages/Plan.svg"
         toolDrawer.toolTitle    = toolTitle
         toolDrawer.toolSource   = toolSource
         toolDrawer.toolIcon     = toolIcon
@@ -237,7 +243,7 @@ ApplicationWindow {
     }
 
     FlyView {
-        id:                     flightView
+        id:                     flyView
         anchors.fill:           parent
         utmspSendActTrigger:    _utmspSendActTrigger
     }

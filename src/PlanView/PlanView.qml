@@ -575,7 +575,7 @@ Item {
                     ToolStripAction {
                         text:           qsTr("Fly")
                         iconSource:     "/qmlimages/PaperPlane.svg"
-                        onTriggered:    _root.visible = false
+                        onTriggered:    mainWindow.showFlyView()
                     },
                     ToolStripAction {
                         text:                   qsTr("File")
