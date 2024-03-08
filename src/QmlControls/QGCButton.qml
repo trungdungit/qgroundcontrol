@@ -1,26 +1,31 @@
 import QtQuick                  2.3
 import QtQuick.Controls         2.12
 import QtQuick.Controls.Styles  1.4
+import QtQuick.Layouts          1.12
 
 import QGroundControl.Palette 1.0
 import QGroundControl.ScreenTools 1.0
 
+/// Standard push button control:
+///     If there is both an icon and text the icon will be to the left of the text
+///     If icon only, icon will be centered
 Button {
     id:             control
-    hoverEnabled:   true
+    hoverEnabled:   !ScreenTools.isMobile
     topPadding:     _verticalPadding
     bottomPadding:  _verticalPadding
     leftPadding:    _horizontalPadding
     rightPadding:   _horizontalPadding
     focusPolicy:    Qt.ClickFocus
+    font.family:    ScreenTools.normalFontFamily
+    font.pointSize: ScreenTools.defaultFontPointSize
+    text:           ""
 
     property bool   primary:        false                               ///< primary button for a group of buttons
-    property real   pointSize:      ScreenTools.defaultFontPointSize    ///< Point size for button text
     property bool   showBorder:     qgcPal.globalTheme === QGCPalette.Light
-    property bool   iconLeft:       false
     property real   backRadius:     ScreenTools.buttonBorderRadius
     property real   heightFactor:   0.5
-    property string iconSource
+    property string iconSource:     ""
 
     property alias wrapMode:            text.wrapMode
     property alias horizontalAlignment: text.horizontalAlignment
@@ -34,46 +39,35 @@ Button {
 
     background: Rectangle {
         id:             backRect
-        implicitWidth:  ScreenTools.implicitButtonWidth
-        implicitHeight: ScreenTools.implicitButtonHeight
         radius:         backRadius
         border.width:   showBorder ? 1 : 0
         border.color:   qgcPal.buttonBorder
-        color:          _showHighlight ?
-                            qgcPal.buttonHighlight :
-                            (primary ? qgcPal.primaryButton : qgcPal.button)
+        color:          _showHighlight ? qgcPal.buttonHighlight : (primary ? qgcPal.primaryButton : qgcPal.button)
     }
 
-    contentItem: Item {
-        implicitWidth:  text.implicitWidth + icon.width
-        implicitHeight: text.implicitHeight
-        baselineOffset: text.y + text.baselineOffset
+    contentItem: RowLayout {
+        spacing: ScreenTools.defaultFontPixelWidth
 
         QGCColoredImage {
             id:                     icon
+            Layout.alignment:       Qt.AlignHCenter
             source:                 control.iconSource
-            height:                 source === "" ? 0 : text.height
+            height:                 text.height
             width:                  height
             color:                  text.color
             fillMode:               Image.PreserveAspectFit
             sourceSize.height:      height
-            anchors.left:           control.iconLeft ? parent.left : undefined
-            anchors.leftMargin:     control.iconLeft ? ScreenTools.defaultFontPixelWidth : undefined
-            anchors.right:          !control.iconLeft ? parent.right : undefined
-            anchors.rightMargin:    !control.iconLeft ? ScreenTools.defaultFontPixelWidth : undefined
-            anchors.verticalCenter: parent.verticalCenter
+            visible:                control.iconSource !== ""
         }
 
-        Text {
+        QGCLabel {
             id:                     text
-            anchors.centerIn:       parent
-            antialiasing:           true
+            Layout.alignment:       Qt.AlignHCenter
             text:                   control.text
-            font.pointSize:         pointSize
-            font.family:            ScreenTools.normalFontFamily
-            color:                  _showHighlight ?
-                                        qgcPal.buttonHighlightText :
-                                        (primary ? qgcPal.primaryButtonText : qgcPal.buttonText)
+            font.pointSize:         control.font.pointSize
+            font.family:            control.font.family
+            color:                  _showHighlight ? qgcPal.buttonHighlightText : (primary ? qgcPal.primaryButtonText : qgcPal.buttonText)
+            visible:                control.text !== ""
         }
     }
 }
