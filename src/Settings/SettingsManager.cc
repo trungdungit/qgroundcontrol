@@ -34,6 +34,7 @@ SettingsManager::SettingsManager(QGCApplication* app, QGCToolbox* toolbox)
     , _apmMavlinkStreamRateSettings (nullptr)
 #endif
     , _remoteIDSettings             (nullptr)
+    , _customMavlinkActionsSettings (nullptr)
 {
 
 }
@@ -63,5 +64,6 @@ void SettingsManager::setToolbox(QGCToolbox *toolbox)
 #if !defined(NO_ARDUPILOT_DIALECT)
     _apmMavlinkStreamRateSettings = new APMMavlinkStreamRateSettings(this);
 #endif
-    _remoteIDSettings =             new RemoteIDSettings            (this); 
+    _remoteIDSettings =             new RemoteIDSettings            (this);
+    _customMavlinkActionsSettings = new CustomMavlinkActionsSettings(this);
 }

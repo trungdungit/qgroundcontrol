@@ -27,7 +27,5 @@ DECLARE_SETTINGSFACT(FlyViewSettings, keepMapCenteredOnVehicle)
 DECLARE_SETTINGSFACT(FlyViewSettings, showSimpleCameraControl)
 DECLARE_SETTINGSFACT(FlyViewSettings, showObstacleDistanceOverlay)
 DECLARE_SETTINGSFACT(FlyViewSettings, updateHomePosition)
-DECLARE_SETTINGSFACT(FlyViewSettings, enableCustomActions)
-DECLARE_SETTINGSFACT(FlyViewSettings, customActionDefinitions)
 DECLARE_SETTINGSFACT(FlyViewSettings, instrumentQmlFile)
 

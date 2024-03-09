@@ -12,6 +12,8 @@ add_library(Settings STATIC
 	BatteryIndicatorSettings.h
 	BrandImageSettings.cc
 	BrandImageSettings.h
+	CustomMavlinkActionsSettings.cc
+	CustomMavlinkActionsSettings.h
 	FirmwareUpgradeSettings.cc
 	FirmwareUpgradeSettings.h
 	FlightMapSettings.cc
