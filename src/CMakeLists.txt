@@ -9,7 +9,6 @@ project(qgc)
 add_library(${PROJECT_NAME} STATIC
         CmdLineOptParser.cc
         CmdLineOptParser.h
-        main.cc
         QGCApplication.cc
         QGCApplication.h
         QGCConfig.h
@@ -63,9 +62,8 @@ add_subdirectory(Viewer3D)
 #               Linking Libraries
 #######################################################
 target_link_libraries(${PROJECT_NAME}
-        PRIVATE
-            Qt5::QuickControls2
         PUBLIC
+			Qt5::QuickControls2
             Qt5::QuickWidgets
             Qt5::Widgets
 
