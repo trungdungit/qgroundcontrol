@@ -9,6 +9,7 @@
 
 import QtQuick              2.12
 import QtQuick.Layouts      1.2
+import QtQuick.Dialogs      1.2
 
 import QGroundControl                       1.0
 import QGroundControl.Controls              1.0

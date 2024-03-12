@@ -82,7 +82,6 @@ find_package(Qt5
         Widgets
         Xml
     OPTIONAL_COMPONENTS
-		LinguistTools
         SerialPort
     HINTS
         ${QT_LIBRARY_HINTS}
@@ -189,15 +188,6 @@ set_target_properties(${PROJECT_NAME}
     PROPERTIES
         QT_RESOURCE_PREFIX "/qgc"
 )
-
-if(Qt5LinguistTools_FOUND)
-    file(GLOB TS_SOURCES RELATIVE ${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/translations/qgc_*.ts)
-    # TODO: Update to new qt_add_translations form in Qt6.7
-    qt5_add_translations(${PROJECT_NAME}
-        TS_FILES
-            ${TS_SOURCES}
-    )
-endif()
 
 if(MACOS)
     set_target_properties(${PROJECT_NAME}
