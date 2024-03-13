@@ -23,8 +23,6 @@ add_library(comm STATIC
 	LinkManager.h
 	LogReplayLink.cc
 	LogReplayLink.h
-	MavlinkMessagesTimer.cc
-	MavlinkMessagesTimer.h
 	MAVLinkProtocol.cc
 	MAVLinkProtocol.h
 	QGCMAVLink.cc
