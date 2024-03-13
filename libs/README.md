@@ -42,7 +42,7 @@ This folder contains the various required libraries for QGC to compile.
 # ArduPilot-Parameter-Repository
 * Pulled from https://github.com/ArduPilot/ArduPilot-Parameter-Repository
 * Version 4.3
-* 772370a
+* e2755f
 
 # SDL_GameControllerDB
 * Pulled from https://github.com/mdqinc/SDL_GameControllerDB
