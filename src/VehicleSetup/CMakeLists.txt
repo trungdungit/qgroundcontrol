@@ -1,3 +1,4 @@
+find_package(Qt5 REQUIRED COMPONENTS Core Qml)
 
 add_library(VehicleSetup STATIC
 	Bootloader.cc
@@ -35,4 +36,4 @@ target_link_libraries(VehicleSetup
 		qgc
 )
 
-target_include_directories(VehicleSetup INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(VehicleSetup PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

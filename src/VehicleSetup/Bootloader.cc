@@ -10,8 +10,13 @@
 #include "Bootloader.h"
 #include "QGCLoggingCategory.h"
 
+#ifdef Q_OS_ANDROID
+#include "qserialport.h"
+#else
+#include <QSerialPort>
+#endif
+
 #include <QFile>
-#include <QSerialPortInfo>
 #include <QDebug>
 #include <QElapsedTimer>
 

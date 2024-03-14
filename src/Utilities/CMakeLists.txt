@@ -1,4 +1,4 @@
-find_package(Qt5 REQUIRED COMPONENTS Core Positioning Qml)
+find_package(Qt5 REQUIRED COMPONENTS Core Network Positioning Qml)
 
 add_library(Utilities STATIC
     JsonHelper.cc
@@ -33,10 +33,11 @@ target_link_libraries(Utilities
 	PRIVATE
 		Qt5::Qml
 		shp
+		qgc
 	PUBLIC
 		Qt5::Core
 		Qt5::Positioning
-		qgc
+		Qt5::Network
 )
 
 target_include_directories(Utilities

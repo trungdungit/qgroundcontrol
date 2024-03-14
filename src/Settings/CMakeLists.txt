@@ -1,3 +1,4 @@
+find_package(Qt5 REQUIRED COMPONENTS Core)
 
 add_library(Settings STATIC
 	ADSBVehicleManagerSettings.cc
@@ -51,4 +52,3 @@ target_link_libraries(Settings
 )
 
 target_include_directories(Settings PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
-

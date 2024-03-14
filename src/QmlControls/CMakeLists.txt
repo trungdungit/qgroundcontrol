@@ -1,3 +1,5 @@
+find_package(Qt5 REQUIRED COMPONENTS Core Qml)
+
 add_library(QmlControls STATIC
 	AppMessages.cc
 	AppMessages.h
@@ -142,14 +144,12 @@ add_custom_target(QmlControlsQml
 target_link_libraries(QmlControls
 	PUBLIC
 		qgc
-
 		FactSystem
 	PUBLIC
 		Qt5::Concurrent
 		Qt5::Location
-		Qt5::SerialPort
 		Qt5::TextToSpeech
 		Qt5::Widgets
 )
 
-target_include_directories(QmlControls INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(QmlControls PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

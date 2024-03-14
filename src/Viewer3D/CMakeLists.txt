@@ -1,10 +1,12 @@
+find_package(Qt5 REQUIRED COMPONENTS Core Quick3D)
+
 add_library(Viewer3D STATIC
+    Viewer3DManager.cc
     CityMapGeometry.cc
     CityMapGeometry.h
     earcut.hpp
     OsmParser.cc
     OsmParser.h
-    Viewer3DManager.cc
     Viewer3DManager.h
     Viewer3DQmlBackend.cc
     Viewer3DQmlBackend.h
@@ -13,15 +15,10 @@ add_library(Viewer3D STATIC
     Viewer3DUtils.h
 )
 
-find_package(Qt5 REQUIRED COMPONENTS Quick3D)
-
 target_link_libraries(Viewer3D
 	PUBLIC
 		qgc
-        Qt5::Quick3D
+        	Qt5::Quick3D
 )
 
-target_include_directories(Viewer3D
-	PUBLIC
-		${CMAKE_CURRENT_SOURCE_DIR}
-	)
+target_include_directories(Viewer3D PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

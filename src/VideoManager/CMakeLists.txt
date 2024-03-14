@@ -1,3 +1,5 @@
+find_package(Qt5 REQUIRED COMPONENTS Core Multimedia)
+
 # QGC_DISABLE_UVC
 
 add_library(VideoManager STATIC
@@ -10,11 +12,11 @@ add_library(VideoManager STATIC
 )
 
 target_link_libraries(VideoManager
+    PRIVATE
+        Qt5::Multimedia
     PUBLIC
         qgc
-        Qt5::Multimedia
-        Qt5::OpenGL
         VideoReceiver
 )
 
-target_include_directories(VideoManager INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
+target_include_directories(VideoManager PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

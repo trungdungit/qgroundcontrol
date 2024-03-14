@@ -1,16 +1,6 @@
-# NO_SERIAL_LINK # TODO: Make this QGC_NO_SERIAL_LINK
+find_package(Qt5 REQUIRED COMPONENTS Bluetooth Core Network Test)
 
-set(EXTRA_SRC)
-if(QGC_BUILD_TESTING)
-	list(APPEND EXTRA_SRC
-		MockLink.cc
-		MockLink.h
-		MockLinkFTP.cc
-		MockLinkFTP.h
-		MockLinkMissionItemHandler.cc
-		MockLinkMissionItemHandler.h
-	)
-endif()
+# NO_SERIAL_LINK # TODO: Make this QGC_NO_SERIAL_LINK
 
 add_library(comm STATIC
 	BluetoothLink.cc
@@ -37,20 +27,35 @@ add_library(comm STATIC
 	UdpIODevice.h
 	UDPLink.cc
 	UDPLink.h
-
-	${EXTRA_SRC}
 )
+
+if(QGC_BUILD_TESTING)
+	target_sources(comm
+		PRIVATE
+			MockLink.cc
+			MockLink.h
+			MockLinkFTP.cc
+			MockLinkFTP.h
+			MockLinkMissionItemHandler.cc
+			MockLinkMissionItemHandler.h
+	)
+endif()
 
 target_link_libraries(comm
+	PRIVATE
+		Qt5::Test
 	PUBLIC
 		qgc
-		Qt5::Location
-		Qt5::SerialPort
-		Qt5::Test
-		Qt5::TextToSpeech
 		Qt5::Widgets
 		Qt5::Bluetooth
+		Qt5::Network
 )
+
+if(ANDROID)
+    target_link_libraries(comm PUBLIC qtandroidserialport)
+else()
+	target_link_libraries(comm PUBLIC Qt5::SerialPort)
+endif()
 
 option(QGC_ZEROCONF_ENABLED "Enable ZeroConf Compatibility" OFF)
 if(QGC_ZEROCONF_ENABLED)

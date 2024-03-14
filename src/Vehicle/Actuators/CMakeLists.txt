@@ -1,3 +1,4 @@
+find_package(Qt5 REQUIRED COMPONENTS Core)
 
 add_library(Actuators STATIC
 	ActuatorActions.cc
@@ -18,6 +19,10 @@ add_library(Actuators STATIC
 	MotorAssignment.h
 )
 
-target_link_libraries(Actuators PRIVATE
-	qgc)
+target_link_libraries(Actuators
+	PRIVATE
+		qgc
+)
+
+target_include_directories(Actuators PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
