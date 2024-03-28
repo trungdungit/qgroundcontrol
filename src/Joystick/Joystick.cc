@@ -778,6 +778,7 @@ void Joystick::stopPolling(void)
         }
         _exitThread = true;
     }
+    _activeVehicle = nullptr;
 }
 
 void Joystick::setCalibration(int axis, Calibration_t& calibration)
