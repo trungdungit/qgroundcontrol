@@ -12,15 +12,11 @@
 #include <QObject>
 #include <QString>
 #include <QtQml>
-#include <QTextStream>
+#include <QLoggingCategory>
 #include <QJsonObject>
 #include <QGeoCoordinate>
 
 #include "QGCMAVLink.h"
-#include "QGC.h"
-#include "QmlObjectListModel.h"
-#include "Fact.h"
-#include "QGCLoggingCategory.h"
 #include "QmlObjectListModel.h"
 #include "Vehicle.h"
 #include "MissionController.h"

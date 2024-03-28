@@ -12,10 +12,8 @@
 #include <QObject>
 #include <QList>
 #include <QGeoCoordinate>
-#include <QScopedPointer>
 
 #include "ShapeFileHelper.h"
-
 #include "shapefil.h"
 
 /// The QGCMapPolygon class provides a polygon which can be displayed on a map using a map visuals control.

@@ -24,11 +24,9 @@
 #include <QQueue>
 #include <QMutex>
 #include <QWaitCondition>
-#include <QMutexLocker>
 #include <QtSql/QSqlDatabase>
 #include <QHostInfo>
-
-#include "QGCLoggingCategory.h"
+#include <QLoggingCategory>
 
 Q_DECLARE_LOGGING_CATEGORY(QGCTileCacheLog)
 

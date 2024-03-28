@@ -13,9 +13,9 @@
 #include "ComplexMissionItem.h"
 #include "MissionItem.h"
 #include "Fact.h"
-#include "QGCLoggingCategory.h"
 #include "CameraSection.h"
 #include "SpeedSection.h"
+#include <QLoggingCategory>
 
 Q_DECLARE_LOGGING_CATEGORY(MissionSettingsItemLog)
 

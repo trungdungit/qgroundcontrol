@@ -9,8 +9,6 @@
 
 
 #include "APMSubMotorComponentController.h"
-#include "ParameterManager.h"
-
 
 APMSubMotorComponentController::APMSubMotorComponentController(void)
 {   

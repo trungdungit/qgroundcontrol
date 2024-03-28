@@ -12,12 +12,11 @@
 #include "QGCCorePlugin.h"
 #include "LinkManager.h"
 #include "SettingsManager.h"
-#include "UDPLink.h"
-
-//#include "LinkInterface.h"
 
 #include <QSettings>
 #include <QDebug>
+#include <QJsonDocument>
+#include <QJsonArray>
 
 const QString AirLinkManager::airlinkHost = "air-link.space";
 

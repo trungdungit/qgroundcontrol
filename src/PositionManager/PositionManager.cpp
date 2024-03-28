@@ -10,6 +10,7 @@
 #include "PositionManager.h"
 #include "QGCApplication.h"
 #include "QGCCorePlugin.h"
+#include "SimulatedPosition.h"
 
 #if !defined(NO_SERIAL_LINK) && !defined(Q_OS_ANDROID)
 #include <QSerialPortInfo>

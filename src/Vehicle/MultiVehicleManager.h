@@ -18,7 +18,8 @@
 #include "QGCMAVLink.h"
 #include "QmlObjectListModel.h"
 #include "QGCToolbox.h"
-#include "QGCLoggingCategory.h"
+
+#include <QLoggingCategory>
 
 class FirmwarePluginManager;
 class FollowMe;

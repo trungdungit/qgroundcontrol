@@ -11,8 +11,7 @@
 
 #include <QObject>
 #include <QGeoCoordinate>
-
-#include "QGCLoggingCategory.h"
+#include <QLoggingCategory>
 #include "PlanManager.h"
 
 class Vehicle;

@@ -9,11 +9,9 @@
 
 #include "Fact.h"
 #include "FactValueSliderListModel.h"
-#include "QGCMAVLink.h"
 #include "QGCApplication.h"
 #include "QGCCorePlugin.h"
 
-#include <QtQml>
 #include <QQmlEngine>
 
 static const char* kMissingMetadata = "Meta data pointer missing";

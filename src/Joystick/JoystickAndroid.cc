@@ -1,12 +1,11 @@
 #include "JoystickAndroid.h"
 #include "JoystickManager.h"
+#include "QGCLoggingCategory.h"
 
 #if QT_VERSION >= QT_VERSION_CHECK(6, 1, 0)
 #include <QJniEnvironment>
 #include <QJniObject>
 #endif
-
-#include <QQmlEngine>
 
 int JoystickAndroid::_androidBtnListCount;
 int *JoystickAndroid::_androidBtnList;

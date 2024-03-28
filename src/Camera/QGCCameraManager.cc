@@ -11,6 +11,9 @@
 #include "QGCApplication.h"
 #include "JoystickManager.h"
 #include "SimulatedCameraControl.h"
+#include "QGCLoggingCategory.h"
+
+#include <QQmlEngine>
 
 QGC_LOGGING_CATEGORY(CameraManagerLog, "CameraManagerLog")
 

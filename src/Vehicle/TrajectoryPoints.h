@@ -9,8 +9,8 @@
 
 #pragma once
 
-#include "QmlObjectListModel.h"
-
+#include <QObject>
+#include <QVariantList>
 #include <QGeoCoordinate>
 
 class Vehicle;

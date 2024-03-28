@@ -15,8 +15,7 @@
 #include "QGCApplication.h"
 #include "QGCCorePlugin.h"
 
-#include <QApplication>
-#include <QPalette>
+#include <QDebug>
 
 QList<QGCPalette*>   QGCPalette::_paletteObjects;
 

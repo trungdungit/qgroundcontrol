@@ -9,6 +9,7 @@
 
 #include "MapsSettings.h"
 
+#include <QSettings>
 #include <QQmlEngine>
 #include <QtQml>
 

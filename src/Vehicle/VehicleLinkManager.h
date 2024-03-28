@@ -11,7 +11,6 @@
 
 #include <QObject>
 #include <QTimer>
-#include <QDebug>
 #include <QLoggingCategory>
 #include <QElapsedTimer>
 

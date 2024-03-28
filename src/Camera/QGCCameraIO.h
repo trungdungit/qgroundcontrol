@@ -13,6 +13,11 @@
 #include <QLoggingCategory>
 
 class MavlinkCameraControl;
+class Fact;
+class Vehicle;
+class MAVLinkProtocol;
+
+class MavlinkCameraControl;
 
 Q_DECLARE_LOGGING_CATEGORY(CameraIOLog)
 Q_DECLARE_LOGGING_CATEGORY(CameraIOLogVerbose)

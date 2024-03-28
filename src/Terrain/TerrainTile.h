@@ -1,8 +1,7 @@
 #ifndef TERRAINTILE_H
 #define TERRAINTILE_H
 
-#include "QGCLoggingCategory.h"
-
+#include <QLoggingCategory>
 #include <QGeoCoordinate>
 #include <QVector>
 

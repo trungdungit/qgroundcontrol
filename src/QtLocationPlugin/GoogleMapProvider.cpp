@@ -14,6 +14,7 @@
 #endif
 #include <QtGlobal>
 #include <QRegExp>
+#include <QtNetwork/QNetworkProxy>
 
 #include "QGCMapEngine.h"
 

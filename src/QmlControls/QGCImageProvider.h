@@ -9,7 +9,6 @@
 
 #pragma once
 #include <QObject>
-#include <QQmlListProperty>
 #include <QQuickImageProvider>
 
 #include "QGCToolbox.h"

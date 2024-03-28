@@ -10,11 +10,9 @@
 #pragma once
 
 #include <QQuickItem>
-#include <QTimer>
 #include <QSGGeometryNode>
 #include <QSGGeometry>
-
-#include "QGCLoggingCategory.h"
+#include <QLoggingCategory>
 
 Q_DECLARE_LOGGING_CATEGORY(TerrainProfileLog)
 

@@ -11,14 +11,12 @@
 #pragma once
 
 #include "VehicleComponent.h"
-#include "Fact.h"
-
 #include "Actuators/Actuators.h"
 
 class ActuatorComponent : public VehicleComponent
 {
     Q_OBJECT
-    
+
 public:
     ActuatorComponent(Vehicle* vehicle, AutoPilotPlugin* autopilot, QObject* parent = nullptr);
 

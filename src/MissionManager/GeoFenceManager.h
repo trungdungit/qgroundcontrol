@@ -11,9 +11,8 @@
 
 #include <QObject>
 #include <QGeoCoordinate>
+#include <QLoggingCategory>
 
-#include "QGCLoggingCategory.h"
-#include "FactSystem.h"
 #include "PlanManager.h"
 #include "QGCFencePolygon.h"
 #include "QGCFenceCircle.h"

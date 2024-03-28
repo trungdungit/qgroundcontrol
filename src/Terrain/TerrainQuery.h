@@ -10,15 +10,16 @@
 #pragma once
 
 #include "TerrainTile.h"
-#include "QGCMapEngineData.h"
-#include "QGCLoggingCategory.h"
 
+#include <QtCore>
 #include <QObject>
 #include <QGeoCoordinate>
 #include <QGeoRectangle>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
 #include <QTimer>
+#include <QMutex>
+#include <QLoggingCategory>
 #include <QtLocation/private/qgeotiledmapreply_p.h>
 
 Q_DECLARE_LOGGING_CATEGORY(TerrainQueryLog)

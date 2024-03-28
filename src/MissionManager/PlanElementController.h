@@ -12,9 +12,6 @@
 
 #include <QObject>
 
-#include "Vehicle.h"
-#include "MultiVehicleManager.h"
-
 class PlanMasterController;
 
 /// This is the abstract base clas for Plan Element controllers.

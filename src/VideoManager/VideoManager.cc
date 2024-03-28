@@ -7,11 +7,7 @@
  *
  ****************************************************************************/
 
-
-#include <QQmlContext>
 #include <QQmlEngine>
-#include <QSettings>
-#include <QUrl>
 #include <QDir>
 #include <QQuickWindow>
 
@@ -19,7 +15,7 @@
 #include <QCameraInfo>
 #endif
 
-#include "ScreenToolsController.h"
+#include "QGCApplication.h"
 #include "VideoManager.h"
 #include "QGCToolbox.h"
 #include "QGCCorePlugin.h"
@@ -27,6 +23,7 @@
 #include "Settings/SettingsManager.h"
 #include "Vehicle.h"
 #include "QGCCameraManager.h"
+#include "QGCLoggingCategory.h"
 
 #if defined(QGC_GST_STREAMING)
 #include "GStreamer.h"

@@ -12,6 +12,7 @@
 #include "QGeoMapReplyQGC.h"
 #include "QGCFileDownload.h"
 #include "QGCApplication.h"
+#include "QGCLoggingCategory.h"
 
 #include <QUrl>
 #include <QUrlQuery>

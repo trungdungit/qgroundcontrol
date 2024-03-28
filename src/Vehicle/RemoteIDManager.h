@@ -12,8 +12,8 @@
 #include <QObject>
 #include <QDateTime>
 #include <QGeoPositionInfo>
+#include <QLoggingCategory>
 
-#include "QGCLoggingCategory.h"
 #include "QGCMAVLink.h"
 #include "Vehicle.h"
 

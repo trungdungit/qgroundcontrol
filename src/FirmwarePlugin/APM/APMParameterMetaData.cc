@@ -9,13 +9,9 @@
 
 
 #include "APMParameterMetaData.h"
-#include "QGCApplication.h"
 #include "QGCLoggingCategory.h"
 
 #include <QFile>
-#include <QFileInfo>
-#include <QDir>
-#include <QDebug>
 #include <QStack>
 #include <QRegExp>
 

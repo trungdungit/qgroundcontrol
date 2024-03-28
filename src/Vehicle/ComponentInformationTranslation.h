@@ -10,9 +10,7 @@
 #pragma once
 
 #include <QLoggingCategory>
-#include <QJsonDocument>
-
-#include "QGCLoggingCategory.h"
+\
 #include "QGCCachedFileDownload.h"
 
 Q_DECLARE_LOGGING_CATEGORY(ComponentInformationTranslationLog)

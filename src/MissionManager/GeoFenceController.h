@@ -15,8 +15,7 @@
 #include "QGCFencePolygon.h"
 #include "QGCFenceCircle.h"
 #include "Vehicle.h"
-#include "MultiVehicleManager.h"
-#include "QGCLoggingCategory.h"
+#include <QLoggingCategory>
 
 Q_DECLARE_LOGGING_CATEGORY(GeoFenceControllerLog)
 

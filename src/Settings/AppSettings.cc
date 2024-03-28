@@ -10,7 +10,6 @@
 #include "AppSettings.h"
 #include "QGCPalette.h"
 #include "QGCApplication.h"
-#include "ParameterManager.h"
 
 #ifdef Q_OS_ANDROID
 #include "AndroidInterface.h"

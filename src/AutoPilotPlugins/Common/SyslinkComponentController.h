@@ -10,8 +10,8 @@
 #ifndef SyslinkComponentController_H
 #define SyslinkComponentController_H
 
+#include <QLoggingCategory>
 #include "FactPanelController.h"
-#include "QGCLoggingCategory.h"
 #include "AutoPilotPlugin.h"
 
 Q_DECLARE_LOGGING_CATEGORY(SyslinkComponentControllerLog)

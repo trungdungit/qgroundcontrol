@@ -9,7 +9,7 @@
 
 #pragma once
 
-#include "QGCApplication.h"
+#include <QElapsedTimer>
 #include <QLoggingCategory>
 #include "QmlObjectListModel.h"
 #include "MavlinkCameraControl.h"

@@ -9,8 +9,7 @@
 
 #pragma once
 
-#include "QGCLoggingCategory.h"
-
+#include <QLoggingCategory>
 #include <QString>
 #include <QDir>
 #include <QMap>

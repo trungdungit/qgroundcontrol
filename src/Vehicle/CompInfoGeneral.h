@@ -10,10 +10,8 @@
 #pragma once
 
 #include "CompInfo.h"
-#include "QGCMAVLink.h"
-#include "QGCLoggingCategory.h"
-#include "FactMetaData.h"
 
+#include <QLoggingCategory>
 #include <QObject>
 #include <QMap>
 

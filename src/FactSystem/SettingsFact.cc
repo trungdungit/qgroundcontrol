@@ -13,6 +13,7 @@
 #include "QGCApplication.h"
 
 #include <QSettings>
+#include <QQmlEngine>
 
 SettingsFact::SettingsFact(QObject* parent)
     : Fact(parent)

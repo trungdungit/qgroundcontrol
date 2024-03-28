@@ -12,7 +12,7 @@
 #include "TransectStyleComplexItem.h"
 #include "MissionItem.h"
 #include "SettingsFact.h"
-#include "QGCLoggingCategory.h"
+#include <QLoggingCategory>
 
 Q_DECLARE_LOGGING_CATEGORY(SurveyComplexItemLog)
 

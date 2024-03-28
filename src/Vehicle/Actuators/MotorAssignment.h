@@ -13,7 +13,7 @@
 #include <QString>
 #include <QTimer>
 
-#include "Common.h"
+#include "Vehicle.h"
 
 #include "QmlControls/QmlObjectListModel.h"
 

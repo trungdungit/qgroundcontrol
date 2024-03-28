@@ -10,6 +10,7 @@
 
 #include "QGCSerialPortInfo.h"
 #include "JsonHelper.h"
+#include "QGCLoggingCategory.h"
 
 #include <QFile>
 #include <QJsonDocument>

@@ -16,8 +16,6 @@
 #include <QXmlStreamReader>
 #include <QLoggingCategory>
 
-#include "ParameterManager.h"
-#include "FactSystem.h"
 #include "AutoPilotPlugin.h"
 
 /// @file PX4AirframeLoader.h

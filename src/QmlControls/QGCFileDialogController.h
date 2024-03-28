@@ -13,8 +13,7 @@
 
 #include <QObject>
 #include <QUrl>
-
-#include "QGCLoggingCategory.h"
+#include <QLoggingCategory>
 
 Q_DECLARE_LOGGING_CATEGORY(QGCFileDialogControllerLog)
 

@@ -11,6 +11,7 @@
 #include "VideoManager.h"
 #include "QGCApplication.h"
 #include "SettingsManager.h"
+#include <QQmlEngine>
 
 //-----------------------------------------------------------------------------
 SimulatedCameraControl::SimulatedCameraControl(Vehicle* vehicle, QObject* parent)
