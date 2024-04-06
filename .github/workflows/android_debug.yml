@@ -72,8 +72,19 @@ jobs:
           modules:      qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d
           setup-python: true
           cache:        false
+          
+      - name: Install Qt5 for Linux
+        uses: ./install-qt-action/action/
+        with:
+          version:      ${{ env.QT_VERSION }}
+          host:         linux
+          target:       desktop
+          dir:          ${{ runner.temp }}
+          modules:      qtcharts qtlocation qtpositioning qtspeech qt5compat qtmultimedia qtserialport qtimageformats qtshadertools qtconnectivity qtquick3d
+          cache:        true
 
-      - name: Install Qt6 for Android
+
+      - name: Install Qt5 for Android
         uses: jurplel/install-qt-action@v3
         with:
           version:      ${{ env.QT_VERSION }}
