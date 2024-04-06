@@ -96,6 +96,7 @@ ToolIndicatorPage {
                         autoConnectSettings.autoConnectLibrePilot,
                         autoConnectSettings.autoConnectUDP,
                         autoConnectSettings.autoConnectZeroConf,
+                        autoConnectSettings.autoConnectRTKGPS,
                     ]
 
                     property var names: [ qsTr("Pixhawk"), qsTr("SiK Radio"), qsTr("PX4 Flow"), qsTr("LibrePilot"), qsTr("UDP"), qsTr("Zero-Conf"), qsTr("RTK") ]
