@@ -16,6 +16,8 @@
 #include <QAbstractSocket>
 #include <QLoggingCategory>
 
+#include <cstring>
+
 Q_DECLARE_LOGGING_CATEGORY(APMFirmwarePluginLog)
 
 class APMCustomMode
