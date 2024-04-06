@@ -98,7 +98,7 @@ ToolIndicatorPage {
                         autoConnectSettings.autoConnectZeroConf,
                     ]
 
-                    property var names: [ qsTr("Pixhawk"), qsTr("SiK Radio"), qsTr("PX4 Flow"), qsTr("LibrePilot"), qsTr("UDP"), qsTr("Zero-Conf") ]
+                    property var names: [ qsTr("Pixhawk"), qsTr("SiK Radio"), qsTr("PX4 Flow"), qsTr("LibrePilot"), qsTr("UDP"), qsTr("Zero-Conf"), qsTr("RTK") ]
 
                     FactCheckBoxSlider {
                         Layout.fillWidth:   true
