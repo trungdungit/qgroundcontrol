@@ -1,10 +1,5 @@
 This folder contains the various required libraries for QGC to compile.
 
-# gst-plugins-good
-* Pulled from https://github.com/mavlink/gst-plugins-good.git
-* Version 1.18
-* 5ff0a6a
-
 # xz-embedded
 * Pulled from https://github.com/Auterion/xz-embedded.git
 * 090e6a0
