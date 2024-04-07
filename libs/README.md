@@ -32,7 +32,7 @@ This folder contains the various required libraries for QGC to compile.
 # GPS-Drivers
 * Pulled from https://github.com/PX4/GpsDrivers.git
 * Version 1.14
-* f48cc0
+* 915024c
 
 # ArduPilot-Parameter-Repository
 * Pulled from https://github.com/ArduPilot/ArduPilot-Parameter-Repository
