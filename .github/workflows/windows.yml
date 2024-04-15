@@ -27,7 +27,7 @@ jobs:
         shell: cmd
 
     env:
-      QT_VERSION:5.15.2
+      QT_VERSION: 5.15.2
       ARTIFACT: QGroundControl-installer.exe
 
     steps:

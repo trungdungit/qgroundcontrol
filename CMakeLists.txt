@@ -279,8 +279,6 @@ install(
     BUNDLE  DESTINATION .
 )
 
-install(SCRIPT ${deploy_script})
-
 install(
     DIRECTORY ${CMAKE_SOURCE_DIR}/resources/
     DESTINATION ${CMAKE_INSTALL_DATADIR}/qgroundcontrol
