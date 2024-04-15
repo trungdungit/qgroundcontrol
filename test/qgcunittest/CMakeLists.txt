@@ -1,7 +1,6 @@
 qt_add_library(qgcunittest
 	STATIC
 		#FileDialogTest.cc FileDialogTest.h
-		#FileManagerTest.cc FileManagerTest.h
 		ComponentInformationCacheTest.cc ComponentInformationCacheTest.h
 		ComponentInformationTranslationTest.cc ComponentInformationTranslationTest.h
 		#MainWindowTest.cc MainWindowTest.h
