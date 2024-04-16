@@ -17,7 +17,7 @@ This folder contains the various required libraries for QGC to compile.
 # mavlink
 * Pulled from https://github.com/mavlink/c_library_v2.git
 * Version 2.0
-* 55988d1
+* 908a391
 
 # android_openssl
 * Pulled from https://github.com/KDAB/android_openssl
