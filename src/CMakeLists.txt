@@ -16,8 +16,6 @@ add_library(${PROJECT_NAME} STATIC
         QGCToolbox.h
 )
 
-set_source_files_properties(QGCApplication.cc PROPERTIES COMPILE_DEFINITIONS APP_VERSION_STR="${APP_VERSION_STR}")
-
 # Subdirectories
 add_subdirectory(ADSB)
 add_subdirectory(AirLink)
