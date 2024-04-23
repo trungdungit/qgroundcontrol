@@ -13,6 +13,9 @@ on:
       - 'docs/**'
 
   workflow_dispatch:
+  
+env:
+  BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
 
 jobs:
   build:
@@ -43,7 +46,7 @@ jobs:
           retention-days: 1
 
   deploy:
-    if: ${{ github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.pull_request.merged) }}
+    if: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && github.event.pull_request.merged) }}
     needs: build
     runs-on: ubuntu-latest
 
@@ -58,7 +61,6 @@ jobs:
         env:
           GIT_USER: ${{ secrets.PX4BUILDBOT_USER }}
           GIT_PASS: ${{ secrets.PX4BUILDBOT_PASS }}
-          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
         run: |
           git clone https://${{ secrets.PX4BUILDBOT_USER }}:${{ secrets.PX4BUILDBOT_ACCESSTOKEN }}@github.com/mavlink/docs.qgroundcontrol.com.git
           rm -rf docs.qgroundcontrol.com/${{ env.BRANCH_NAME }}
