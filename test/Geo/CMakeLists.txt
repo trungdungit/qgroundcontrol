@@ -1,4 +1,4 @@
-qt_add_library(GeoTest
+add_library(GeoTest
 	STATIC
 		GeoTest.cc GeoTest.h
 )

@@ -1,4 +1,4 @@
-qt_add_library(MissionManagerTest
+add_library(MissionManagerTest
 	STATIC
 		CameraCalcTest.cc CameraCalcTest.h
 		CameraSectionTest.cc CameraSectionTest.h
@@ -33,10 +33,10 @@ target_link_libraries(MissionManagerTest
 
 target_include_directories(MissionManagerTest PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
 
-qt_add_qml_module(MissionManagerTest
-    URI missionmanagertest
-    VERSION 1.0
-    QML_FILES
-    	MissionCommandTreeEditorTestWindow.qml
-    IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
-)
+#qt_add_qml_module(MissionManagerTest
+#    URI missionmanagertest
+#    VERSION 1.0
+#    QML_FILES
+#    	MissionCommandTreeEditorTestWindow.qml
+#    IMPORT_PATH ${QT_QML_OUTPUT_DIRECTORY}
+#)

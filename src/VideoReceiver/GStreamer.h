@@ -4,11 +4,12 @@
 #include <QLoggingCategory>
 #include <QQuickItem>
 
-#include "VideoReceiver.h"
 #include "VideoSettings.h"
 
 Q_DECLARE_LOGGING_CATEGORY(GStreamerLog)
 Q_DECLARE_LOGGING_CATEGORY(GStreamerAPILog)
+
+class VideoReceiver;
 
 class GStreamer {
 public:

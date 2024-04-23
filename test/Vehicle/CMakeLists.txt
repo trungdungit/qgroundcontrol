@@ -1,4 +1,4 @@
-qt_add_library(VehicleTest
+add_library(VehicleTest
 	STATIC
 		FTPManagerTest.cc FTPManagerTest.h
 		RequestMessageTest.cc RequestMessageTest.h

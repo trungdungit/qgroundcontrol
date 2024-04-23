@@ -1,6 +1,6 @@
 add_subdirectory(preferences)
 
-qt_add_library(uiTest STATIC)
+add_library(uiTest STATIC)
 
 target_link_libraries(QmlControlsTest
 	PUBLIC

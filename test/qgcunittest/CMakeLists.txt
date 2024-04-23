@@ -1,4 +1,4 @@
-qt_add_library(qgcunittest
+add_library(qgcunittest
 	STATIC
 		#FileDialogTest.cc FileDialogTest.h
 		ComponentInformationCacheTest.cc ComponentInformationCacheTest.h
@@ -15,14 +15,14 @@ qt_add_library(qgcunittest
 target_link_libraries(qgcunittest
 	PUBLIC
 		qgc
-		Qt6::Test
+		Qt5::Test
 )
 
-qt_add_resources(qgcunittest
-	"qgcunittest_res"
-	FILES
-		TranslationTest.json
-		TranslationTest_de_DE.ts
-)
+#qt_add_resources(qgcunittest
+#	"qgcunittest_res"
+#	FILES
+#		TranslationTest.json
+#		TranslationTest_de_DE.ts
+#)
 
 target_include_directories(qgcunittest PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})

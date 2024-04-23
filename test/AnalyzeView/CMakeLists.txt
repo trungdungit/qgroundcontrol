@@ -1,4 +1,4 @@
-qt_add_library(AnalyzeViewTest
+add_library(AnalyzeViewTest
 	STATIC
 		LogDownloadTest.cc LogDownloadTest.h
 )

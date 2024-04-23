@@ -1,4 +1,4 @@
-qt_add_library(AudioTest
+add_library(AudioTest
 	STATIC
 		AudioOutputTest.cc AudioOutputTest.h
 )
