@@ -67,7 +67,6 @@ target_link_libraries(${PROJECT_NAME}
             AutoPilotPlugins
             Camera
             comm
-            compression
             FactSystem
             FirmwarePlugin
             FlightMap

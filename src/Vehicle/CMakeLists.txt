@@ -97,7 +97,7 @@ add_library(Vehicle STATIC
 
 target_link_libraries(Vehicle
 	PRIVATE
-		compression
+		Compression
 	PUBLIC
 		qgc
 		libevents
